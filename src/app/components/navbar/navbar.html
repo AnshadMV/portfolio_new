@@ -1,0 +1,67 @@
+<nav
+    class="fixed top-0 left-0 w-full z-50 transition-all duration-300 backdrop-blur-md bg-[var(--bg-primary)]/80 border-b border-[var(--border-color)]">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+        <!-- Logo -->
+        <a href="/" class="text-xl font-bold font-mono tracking-tighter hover:text-[var(--accent)] transition-colors">
+            &lt;DEV /&gt;
+        </a>
+
+        <!-- Desktop Menu -->
+        <div class="hidden md:flex items-center space-x-8 font-medium">
+            <a *ngFor="let link of links" [href]="link.path"
+                class="relative text-sm uppercase tracking-wide hover:text-[var(--accent)] transition-colors duration-200 group">
+                {{ link.name }}
+                <span
+                    class="absolute -bottom-1 left-0 w-0 h-0.5 bg-[var(--accent)] transition-all duration-300 group-hover:w-full"></span>
+            </a>
+
+            <!-- Theme Toggle -->
+            <button (click)="toggleTheme()"
+                class="ml-4 p-2 rounded-full hover:bg-[var(--bg-secondary)] transition-colors"
+                aria-label="Toggle Theme">
+                <!-- Sun Icon (Show when Dark) -->
+                <svg *ngIf="themeService.currentTheme() === 'dark'" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5"
+                    fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+                </svg>
+                <!-- Moon Icon (Show when Light) -->
+                <svg *ngIf="themeService.currentTheme() === 'light'" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5"
+                    fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                </svg>
+            </button>
+        </div>
+
+        <!-- Mobile Menu Button -->
+        <div class="md:hidden flex items-center">
+            <button (click)="toggleTheme()"
+                class="mr-4 p-2 rounded-full hover:bg-[var(--bg-secondary)] transition-colors">
+                <svg *ngIf="themeService.currentTheme() === 'dark'" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5"
+                    fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+                </svg>
+                <svg *ngIf="themeService.currentTheme() === 'light'" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5"
+                    fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                </svg>
+            </button>
+            <button (click)="toggleMenu()" class="text-2xl focus:outline-none">
+                <span *ngIf="!isMenuOpen()">&#9776;</span>
+                <span *ngIf="isMenuOpen()">&times;</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Mobile Menu Dropdown -->
+    <div *ngIf="isMenuOpen()"
+        class="md:hidden absolute top-full left-0 w-full bg-[var(--bg-primary)] border-b border-[var(--border-color)] py-4 px-6 flex flex-col space-y-4 shadow-lg animate-in slide-in-from-top-2 duration-200">
+        <a *ngFor="let link of links" [href]="link.path" (click)="closeMenu()"
+            class="text-lg font-medium hover:text-[var(--accent)] transition-colors">
+            {{ link.name }}
+        </a>
+    </div>
+</nav>

@@ -1,0 +1,52 @@
+<section id="experience" class="py-24 px-6 md:px-12 bg-[var(--bg-primary)]">
+    <div class="max-w-5xl mx-auto">
+        <div class="mb-16 text-center">
+            <h2 class="text-4xl md:text-5xl font-bold text-[var(--text-primary)] tracking-tight">Professional Journey
+            </h2>
+            <p class="mt-4 text-[var(--text-secondary)] font-mono">Building solutions, one commit at a time.</p>
+        </div>
+
+        <div class="relative border-l border-[var(--border-color)] ml-3 md:ml-8 space-y-12 pb-4">
+            <div *ngFor="let job of jobs; let i = index"
+                class="relative pl-8 md:pl-16 group transition-all duration-500 hover:-translate-y-1">
+
+                <!-- Timeline Marker -->
+                <div
+                    class="absolute -left-[5px] top-2 w-3 h-3 bg-[var(--bg-primary)] border-2 border-[var(--text-secondary)] rounded-full group-hover:border-[var(--accent)] group-hover:bg-[var(--accent)] group-hover:scale-125 transition-all duration-300 shadow-[0_0_0_4px_var(--bg-primary)]">
+                </div>
+
+                <!-- Job Card -->
+                <div
+                    class="bg-[var(--bg-secondary)]/50 p-6 md:p-8 rounded-lg border border-[var(--border-color)] hover:border-[var(--accent)] transition-colors duration-300 backdrop-blur-sm">
+
+                    <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-4">
+                        <div>
+                            <h3
+                                class="text-2xl font-bold text-[var(--text-primary)] group-hover:text-[var(--accent)] transition-colors inline-block">
+                                {{ job.role }}
+                            </h3>
+                            <div class="text-[var(--text-secondary)] font-medium mt-1">{{ job.company }}</div>
+                        </div>
+                        <div
+                            class="mt-2 md:mt-0 px-3 py-1 bg-[var(--bg-primary)] border border-[var(--border-color)] rounded-full text-sm font-mono text-[var(--text-primary)] whitespace-nowrap">
+                            {{ job.period }}
+                        </div>
+                    </div>
+
+                    <p class="text-[var(--text-secondary)] mb-6 leading-relaxed">
+                        {{ job.description }}
+                    </p>
+
+                    <!-- Tech Tags -->
+                    <div class="flex flex-wrap gap-2">
+                        <span *ngFor="let tag of job.tags"
+                            class="px-3 py-1 text-xs font-mono border border-[var(--border-color)] rounded text-[var(--text-secondary)] group-hover:text-[var(--text-primary)] group-hover:border-[var(--accent)] transition-colors duration-300">
+                            #{{ tag }}
+                        </span>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

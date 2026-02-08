@@ -1,3 +1,70 @@
-/* You can add global styles to this file, and also import other style files */
-
 @import "tailwindcss";
+
+@theme {
+  --color-accent: var(--accent);
+  --color-bg-primary: var(--bg-primary);
+  --color-bg-secondary: var(--bg-secondary);
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-border: var(--border-color);
+
+  --font-mono: "Space Mono", monospace;
+  --font-sans: "Inter", sans-serif;
+}
+
+
+:root {
+  /* Light Theme Default */
+  --bg-primary: #ffffff;
+  --bg-secondary: #f3f4f6;
+  --text-primary: #111827;
+  --text-secondary: #4b5563;
+  --accent: #3177ee;
+  --border-color: #e5e7eb;
+
+  /* Font settings */
+  font-feature-settings: "rlig" 1, "calt" 1;
+  scroll-behavior: smooth;
+}
+
+:root.dark {
+  /* Dark Theme Default */
+  --bg-primary: #0a0a0a;
+  --bg-secondary: #171717;
+  --text-primary: #f9fafb;
+  --text-secondary: #9ca3af;
+  --accent: #ccfe00;
+  --border-color: #262626;
+}
+
+body {
+  @apply bg-[var(--bg-primary)] text-[var(--text-primary)] antialiased transition-colors duration-300;
+  font-family: var(--font-sans);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  @apply font-bold tracking-tight;
+}
+
+/* Scrollbar Styles */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-[var(--border-color)] rounded-full hover:bg-[var(--accent)];
+}
+
+/* Selection Styles */
+::selection {
+  @apply bg-[var(--accent)] text-[var(--bg-primary)];
+}
