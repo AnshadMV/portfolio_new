@@ -1,13 +1,14 @@
 <section id="experience" class="py-24 px-6 md:px-12 bg-[var(--bg-primary)]">
     <div class="max-w-5xl mx-auto">
-        <div class="mb-16 text-center">
-            <h2 class="text-4xl md:text-5xl font-bold text-[var(--text-primary)] tracking-tight">Professional Journey
+        <div class="mb-16 text-center" appGsapReveal>
+            <h2 class="text-4xl md:text-5xl font-bold text-[var(--text-primary)] tracking-tight">Professional
+                Journey
             </h2>
             <p class="mt-4 text-[var(--text-secondary)] font-mono">Building solutions, one commit at a time.</p>
         </div>
 
         <div class="relative border-l border-[var(--border-color)] ml-3 md:ml-8 space-y-12 pb-4">
-            <div *ngFor="let job of jobs; let i = index"
+            <div *ngFor="let job of jobs; let i = index" appGsapReveal [delay]="i * 0.2"
                 class="relative pl-8 md:pl-16 group transition-all duration-500 hover:-translate-y-1">
 
                 <!-- Timeline Marker -->

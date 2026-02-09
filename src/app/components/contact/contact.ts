@@ -1,10 +1,11 @@
 
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { GsapRevealDirective } from '../../directives/gsap-reveal.directive';
 
 @Component({
   selector: 'app-contact',
-  imports: [CommonModule],
+  imports: [CommonModule, GsapRevealDirective],
   templateUrl: './contact.html',
   styleUrl: './contact.css'
 })

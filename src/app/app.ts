@@ -7,7 +7,9 @@ import { ProfileComponent } from './components/profile/profile';
 import { ExperienceComponent } from './components/experience/experience';
 import { ProjectsComponent } from './components/projects/projects';
 import { ContactComponent } from './components/contact/contact';
+
 import { FooterComponent } from './components/footer/footer';
+import { SmoothScrollService } from './services/smooth-scroll.service';
 
 @Component({
   selector: 'app-root',
@@ -25,4 +27,6 @@ import { FooterComponent } from './components/footer/footer';
   styleUrl: './app.css'
 })
 export class App {
+  constructor(private smoothScroll: SmoothScrollService) { }
 }
+

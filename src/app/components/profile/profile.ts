@@ -1,6 +1,7 @@
 
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { GsapRevealDirective } from '../../directives/gsap-reveal.directive';
 
 interface SkillGroup {
   category: string;
@@ -9,7 +10,7 @@ interface SkillGroup {
 
 @Component({
   selector: 'app-profile',
-  imports: [CommonModule],
+  imports: [CommonModule, GsapRevealDirective],
   templateUrl: './profile.html',
   styleUrl: './profile.css'
 })

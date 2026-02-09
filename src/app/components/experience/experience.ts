@@ -1,6 +1,7 @@
 
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { GsapRevealDirective } from '../../directives/gsap-reveal.directive';
 
 interface Job {
   role: string;
@@ -12,7 +13,7 @@ interface Job {
 
 @Component({
   selector: 'app-experience',
-  imports: [CommonModule],
+  imports: [CommonModule, GsapRevealDirective],
   templateUrl: './experience.html',
   styleUrl: './experience.css'
 })

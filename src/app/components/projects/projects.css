@@ -1,0 +1,23 @@
+/* Hide scrollbar for horizontal scroll */
+.scrollbar-hide::-webkit-scrollbar {
+    display: none;
+}
+
+.scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+/* Smooth scroll snap */
+.projects-scroll-container {
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* Mobile optimizations */
+@media (max-width: 1024px) {
+    .projects-scroll-container {
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+    }
+}
