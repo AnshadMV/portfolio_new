@@ -14,6 +14,7 @@ export class NavbarComponent {
   smoothScrollService = inject(SmoothScrollService);
   isMenuOpen = signal(false);
   isNavVisible = signal(true);
+  activeSection = signal('profile');
   scrollProgress = signal(0);
   private lastScrollTop = 0;
   private isBrowser: boolean;
@@ -32,6 +33,19 @@ export class NavbarComponent {
     // Clear existing timeout
     clearTimeout(this.scrollTimeout);
 
+    // Update Active Section
+    const sections = ['profile', 'experience', 'projects', 'contact'];
+    for (const section of sections) {
+      const element = document.getElementById(section);
+      if (element) {
+        const rect = element.getBoundingClientRect();
+        if (rect.top <= 100 && rect.bottom >= 100) {
+          this.activeSection.set(section);
+          break;
+        }
+      }
+    }
+
     // Always show navbar at the very top
     if (scrollTop < 10) {
       this.isNavVisible.set(true);
@@ -46,33 +60,42 @@ export class NavbarComponent {
 
     // Hide when scrolling down, show when scrolling up
     if (scrollTop > this.lastScrollTop && scrollTop > 100) {
-      // Scrolling down - hide navbar
       this.isNavVisible.set(false);
     } else if (scrollTop < this.lastScrollTop) {
-      // Scrolling up - show navbar
       this.isNavVisible.set(true);
     }
 
-    // Show navbar when scrolling stops (after 150ms of no scroll)
+    // Show navbar when scrolling stops
     this.scrollTimeout = setTimeout(() => {
       this.isNavVisible.set(true);
     }, 150);
 
     this.lastScrollTop = scrollTop;
 
-    // Scroll Progress logic
+    // Scroll Progress
     const docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-    const scrollPercent = (scrollTop / docHeight) * 100;
-    this.scrollProgress.set(scrollPercent);
+    const scrollPercentValue = (scrollTop / docHeight) * 100;
+    this.scrollProgress.set(scrollPercentValue);
   }
 
-  links = [
-    { name: 'Profile', path: '#profile' },
-    { name: 'Experience', path: '#experience' },
-    { name: 'Projects', path: '#projects' },
-    { name: 'Resume', path: '/resume.pdf' },
-    { name: 'Contact', path: '#contact' }
+  navLinks = [
+    { name: 'Experience', path: '#experience', id: 'experience' },
+    { name: 'Projects', path: '#projects', id: 'projects' },
   ];
+
+  allLinks = [
+    { name: 'Profile', path: '#profile', id: 'profile' },
+    { name: 'Experience', path: '#experience', id: 'experience' },
+    { name: 'Projects', path: '#projects', id: 'projects' },
+    { name: 'Contact', path: '#contact', id: 'contact' },
+    { name: 'Resume', path: '/resume.pdf', id: 'resume' }
+  ];
+
+  resumeLink = { name: 'Resume', path: '/resume.pdf' };
+
+  get links() {
+    return this.allLinks;
+  }
 
   toggleTheme() {
     this.themeService.toggleTheme();

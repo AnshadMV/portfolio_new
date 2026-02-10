@@ -1,3 +1,8 @@
+/* Floating Navbar Transitions */
+nav {
+    filter: drop-shadow(0 20px 50px rgba(0, 0, 0, 0.5));
+}
+
 /* Staggered menu item animations */
 @keyframes slideUpStagger {
     from {
@@ -19,12 +24,12 @@
 
 /* Mobile menu backdrop blur */
 .mobile-menu-overlay {
-    backdrop-filter: blur(24px) saturate(180%);
-    background-color: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(32px) saturate(180%);
+    background-color: rgba(0, 0, 0, 0.95);
 }
 
 :root.dark .mobile-menu-overlay {
-    background-color: rgba(10, 10, 10, 0.96);
+    background-color: rgba(0, 0, 0, 0.98);
 }
 
 /* Smooth transitions */
