@@ -1,48 +1,161 @@
-<section id="profile" class="py-24 px-6 md:px-12 bg-[var(--bg-secondary)] relative z-10 transition-colors duration-300">
-    <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+<section id="profile" class="py-24 bg-[var(--bg-primary)] relative z-10 transition-colors duration-300">
 
+    <!-- Top Meta Info -->
+    <div
+        class="max-w-7xl mx-auto px-6 md:px-12 flex justify-between items-center mb-12 opacity-40 font-mono text-xs uppercase tracking-[0.3em]">
+        <span>Profile Summary</span>
+        <span class="text-center hidden md:block">{{ location }}</span>
+        <span>Timeline (23-25)</span>
+    </div>
 
-        <!-- Biography Section -->
-        <div class="relative" appGsapReveal>
-            <h3 class="text-[var(--accent)] font-mono text-sm tracking-widest uppercase mb-4">My Profile</h3>
-            <h2 class="text-4xl md:text-5xl font-bold mb-8 leading-tight tracking-tight">
-                Developing with Passion.<br>
-                Deploying with Precision.
-            </h2>
-            <p class="text-lg md:text-xl text-[var(--text-secondary)] leading-relaxed mb-8">
-                {{ summary }}
-            </p>
-
-            <!-- Stats or Quick Info (Optional) -->
-            <div class="grid grid-cols-2 gap-8 border-t border-[var(--border-color)] pt-8">
-                <div>
-                    <h4 class="text-3xl font-bold text-[var(--text-primary)]">5+</h4>
-                    <p class="text-sm font-mono text-[var(--text-secondary)] uppercase mt-1">Years Experience</p>
+    <!-- Personal Summary Area -->
+    <div class="max-w-7xl mx-auto px-6 md:px-12 mb-32">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+            <div class="lg:col-span-4">
+                <h2 class="text-3xl font-bold tracking-tighter uppercase mb-2">{{ name }}</h2>
+                <p class="text-[var(--accent)] font-mono text-sm tracking-widest uppercase mb-6">{{ role }}</p>
+                <div
+                    class="flex flex-col gap-2 text-[var(--text-secondary)] font-mono text-xs uppercase tracking-wider">
+                    <a [href]="'mailto:' + email" class="hover:text-[var(--accent)] transition-colors line-clamp-1">{{
+                        email }}</a>
+                    <span>{{ phone }}</span>
                 </div>
-                <div>
-                    <h4 class="text-3xl font-bold text-[var(--text-primary)]">20+</h4>
-                    <p class="text-sm font-mono text-[var(--text-secondary)] uppercase mt-1">Projects Completed</p>
+            </div>
+            <div class="lg:col-span-8">
+                <div #summaryContainer class="summary-wrapper relative">
+                    <p
+                        class="summary-text text-3xl md:text-5xl leading-[1.1] tracking-tight text-[var(--text-primary)] font-medium">
+                        <span class="word-reveal">I</span>
+                        <span class="word-reveal">build</span>
+                        <span class="word-reveal text-gradient font-black">high-performance</span>
+                        <span class="word-reveal">applications</span>
+                        <span class="word-reveal">that</span>
+                        <span class="word-reveal">are</span>
+                        <span class="word-reveal special-word scalable">
+                            sc<span class="char-swap">a</span>l<span class="char-swap">a</span>ble
+                        </span>,
+                        <span class="word-reveal">clean,</span>
+                        <span class="word-reveal">and</span>
+                        <span class="word-reveal">engineered</span>
+                        <span class="word-reveal">for</span>
+                        <span class="word-reveal special-word speed">
+                            sp<span class="lightning-wrapper">ee</span>d
+                        </span>.
+                        <br class="hidden md:block"><br class="hidden md:block">
+                        <span class="word-reveal">Focusing</span>
+                        <span class="word-reveal">on</span>
+                        <span class="word-reveal">the</span>
+                        <span class="word-reveal text-gradient font-black uppercase tracking-tighter">
+                            Best
+                            <svg class="squiggle absolute -top-4 -right-2 w-12 h-12 opacity-0" viewBox="0 0 100 100"
+                                fill="none" stroke="var(--accent)" stroke-width="4">
+                                <path d="M10,50 Q25,25 40,50 T70,50" />
+                            </svg>
+                        </span>
+                        <span class="word-reveal">while</span>
+                        <span class="word-reveal">ensuring</span>
+                        <span class="word-reveal">backend</span>
+                        <span class="word-reveal text-gradient font-black uppercase tracking-tighter">Excellence.</span>
+                    </p>
                 </div>
             </div>
         </div>
+    </div>
 
-        <!-- 3D Skills Display -->
-        <div class="skills-container grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-16">
-            <div *ngFor="let group of skillGroups; let i = index" appGsapReveal [delay]="i * 0.1"
-                class="skill-group-wrapper">
-                <div class="group-title">
-                    <span>{{ group.category }}</span>
-                </div>
+    <!-- Skills List Title -->
+    <div class="max-w-7xl mx-auto px-6 md:px-12 mb-8 opacity-40 font-mono text-xs uppercase tracking-[0.3em]">
+        <span>Technical Stack</span>
+    </div>
 
-                <div class="skill-group-stack">
-                    <div *ngFor="let skill of group.skills; let j = index" class="skill-block"
-                        [style.--delay]="(i * 0.5 + j * 0.2) + 's'">
-                        <div class="face top">{{ skill }}</div>
-                        <div class="face front">{{ skill }}</div>
-                    </div>
+    <!-- Skills List -->
+    <div class="max-w-7xl mx-auto px-6 md:px-12 border-t border-white/10">
+        <div *ngFor="let group of skillGroups"
+            class="skill-row group py-12 md:py-16 flex flex-col md:flex-row items-baseline md:items-center justify-between border-b border-white/10 transition-colors duration-500 hover:bg-white/[0.02] px-4 cursor-default">
+
+            <!-- Category ID -->
+            <div
+                class="category-col font-mono text-xs opacity-60 uppercase tracking-[0.2em] mb-4 md:mb-0 w-full md:w-[200px]">
+                {{ group.id }}
+            </div>
+
+            <!-- Main Skill Label (Hidden on hover) -->
+            <div class="title-col flex-grow text-center relative flex items-center justify-center min-h-[100px]">
+                <h2
+                    class="text-5xl md:text-[6vw] font-light tracking-tighter transition-all duration-700 group-hover:opacity-0 group-hover:scale-95 select-none">
+                    {{ group.category.split(' ')[0] }}
+                </h2>
+
+                <!-- Revealed Skills Center (Center positioned, replaces Label) -->
+                <div
+                    class="skills-reveal absolute inset-0 flex flex-wrap justify-center items-center gap-x-8 gap-y-4 opacity-0 translate-y-4 pointer-events-none transition-all duration-700 group-hover:opacity-100 group-hover:translate-y-0">
+                    <span *ngFor="let item of group.skills"
+                        class="text-[var(--accent)] font-mono text-lg md:text-2xl tracking-[0.2em] uppercase flex items-center gap-3">
+                        <span
+                            class="w-1.5 h-1.5 rounded-full shadow-[0_0_10px_var(--accent)] bg-[var(--accent)] md:bg-none md:bg-[var(--accent-gradient)]"></span>
+                        {{ item }}
+                    </span>
                 </div>
             </div>
+
+            <!-- Standardized Timeline -->
+            <div class="details-col font-mono text-xs opacity-60 text-right w-full md:w-[200px]">
+                <span>(23)-(25)</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pinned Scroll-Text Section -->
+    <div class="scroll-text-container py-32 relative overflow-hidden h-screen flex items-center justify-center">
+        <!-- Persistent Background Text -->
+        <div class="absolute inset-0 flex items-center justify-center opacity-[0.03] pointer-events-none z-0">
+            <p class="text-[25vw] font-black uppercase leading-none select-none tracking-tighter">ANSHAD</p>
         </div>
 
+        <div #textContainer class="text-group-wrapper relative w-full h-full flex items-center justify-center z-10">
+
+            <div class="scroll-phrase opacity-0 absolute text-center w-full">
+                <h3 class="text-6xl md:text-[8vw] font-black uppercase tracking-tighter leading-none">
+                    CREATE WITH <span class="text-transparent text-outline">VISION</span>
+                </h3>
+            </div>
+
+            <div class="scroll-phrase opacity-0 absolute text-center w-full">
+                <h3 class="text-6xl md:text-[8vw] font-black uppercase tracking-tighter leading-none">
+                    INNOVATE <span class="text-gradient">ALWAYS</span>
+                </h3>
+            </div>
+
+            <div class="scroll-phrase opacity-0 absolute text-center w-full">
+                <h3
+                    class="text-6xl md:text-[8vw] font-black uppercase tracking-tighter leading-none text-outline text-transparent">
+                    BUILD THE <span class="text-[var(--text-primary)]">FUTURE</span>
+                </h3>
+            </div>
+
+            <div class="scroll-phrase opacity-0 absolute text-center w-full">
+                <h3 class="text-6xl md:text-[8vw] font-black uppercase tracking-tighter leading-none">
+                    FOCUS ON <span class="text-gradient">SCALABILITY</span>
+                </h3>
+            </div>
+
+            <div class="scroll-phrase opacity-0 absolute text-center w-full">
+                <h3 class="text-6xl md:text-[8vw] font-black uppercase tracking-tighter leading-none">
+                    CLEAN <span class="text-transparent text-outline">ARCHITECTURE</span>
+                </h3>
+            </div>
+
+            <div class="scroll-phrase opacity-0 absolute text-center w-full">
+                <h3 class="text-6xl md:text-[8vw] font-black uppercase tracking-tighter leading-none">
+                    USER <span class="text-gradient">CENTRIC</span> DESIGN
+                </h3>
+            </div>
+
+            <div class="scroll-phrase opacity-0 absolute text-center w-full">
+                <h3
+                    class="text-6xl md:text-[8vw] font-black uppercase tracking-tighter leading-none text-transparent text-outline">
+                    LIMITLESS <span class="text-[var(--text-primary)]">POSSIBILITIES</span>
+                </h3>
+            </div>
+        </div>
     </div>
 </section>

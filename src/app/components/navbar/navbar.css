@@ -1,34 +1,111 @@
 /* Floating Navbar Transitions */
 nav {
-    filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.1));
-    transition: width 0.7s cubic-bezier(0.16, 1, 0.3, 1),
-        top 0.7s cubic-bezier(0.16, 1, 0.3, 1),
-        transform 0.7s cubic-bezier(0.16, 1, 0.3, 1),
-        z-index 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-    will-change: width, top, transform;
+    transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* Hover state for the entire navbar in floating state */
-nav:hover {
-    z-index: 100;
-}
-
-nav:hover .navbar-container {
-    box-shadow: 0 0 30px rgba(204, 255, 0, 0.15), 0 20px 40px rgba(0, 0, 0, 0.4);
-    border-radius: 3rem !important;
-    /* Softer look on hover */
-    transform: translateY(-2px);
-}
-
-.dark nav:hover .navbar-container {
-    box-shadow: 0 0 40px rgba(204, 255, 0, 0.2), 0 30px 60px rgba(0, 0, 0, 0.6);
-}
-
+/* Parent container for Gooey Effect */
 .navbar-container {
-    transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1),
-        box-shadow 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
-        border-radius 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-    will-change: border-radius, padding, background-color, transform;
+    position: relative;
+    display: flex;
+    align-items: center;
+    filter: url('#goo');
+    transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    isolation: isolate;
+    /* Prevent filter from bleeding outside */
+}
+
+.logo-box,
+.menu-box {
+    background: var(--bg-secondary);
+    transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: transform, border-radius, width;
+    position: relative;
+    border: none;
+}
+
+/* Home State (Joined): Perfectly sharp inner edges and overlap */
+nav:not(.scrolled) .logo-box {
+    border-radius: 40px 0 0 40px;
+    transform: translateX(0px);
+    /* Micro-overlap */
+}
+
+nav:not(.scrolled) .menu-box {
+    border-radius: 0 40px 40px 0;
+    transform: translateX(-0.5px);
+    /* Micro-overlap */
+}
+
+/* Scrolled State (Separated): Circular pills without shadow */
+nav.scrolled .logo-box,
+nav.scrolled .menu-box {
+    border-radius: 40px;
+    border: 1px solid var(--border-color) !important;
+}
+
+/* Stretching during the transition (simulated liquid pull) */
+nav.scrolled .logo-box,
+nav.scrolled .menu-box {
+    transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Stretching effect during the "Leap" */
+nav:not(.scrolled) .logo-box:hover,
+nav:not(.scrolled) .menu-box:hover {
+    transform: scale(1.02);
+}
+
+/* Liquid "Tail" Animation */
+.logo-box::after,
+.menu-box::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 20px;
+    height: 80%;
+    background: var(--bg-secondary);
+    transform: translateY(-50%);
+    transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    opacity: 0;
+    pointer-events: none;
+}
+
+.logo-box::after {
+    right: -10px;
+    border-radius: 100%;
+}
+
+.menu-box::after {
+    left: -10px;
+    border-radius: 100%;
+}
+
+/* Show tail only during transition */
+nav.scrolled .logo-box::after,
+nav.scrolled .menu-box::after {
+    opacity: 0;
+}
+
+/* Logo Rolling Animation */
+.logo-roll {
+    text-decoration: none;
+    height: 32px;
+}
+
+.char-wrapper {
+    height: 100%;
+}
+
+.char {
+    display: block;
+    height: 32px;
+    line-height: 32px;
+    transition: transform 0.6s cubic-bezier(0.76, 0, 0.24, 1);
+    transition-delay: calc(var(--i) * 0.04s);
+}
+
+.logo-roll:hover .char {
+    transform: translateY(-100%);
 }
 
 /* Nav Link Hover Effects */
@@ -42,7 +119,6 @@ nav:hover .navbar-container {
     color: var(--text-primary) !important;
 }
 
-/* Glowing underline effect */
 .nav-link-item::after {
     content: '';
     position: absolute;
@@ -50,10 +126,10 @@ nav:hover .navbar-container {
     left: 50%;
     width: 0;
     height: 2px;
-    background: #CCFF00;
+    background: var(--accent);
     transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
     transform: translateX(-50%);
-    box-shadow: 0 0 10px #CCFF00;
+    box-shadow: 0 0 10px var(--accent);
     opacity: 0;
 }
 
@@ -63,7 +139,7 @@ nav:hover .navbar-container {
 }
 
 .dark nav {
-    filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.5));
+    filter: drop-shadow(0 10px 40px rgba(0, 0, 0, 0.6));
 }
 
 @keyframes float {
@@ -80,7 +156,8 @@ nav:hover .navbar-container {
     }
 }
 
-.navbar-container {
+.logo-box,
+.menu-box {
     animation: float 5s ease-in-out infinite;
 }
 
@@ -90,66 +167,6 @@ nav:hover .navbar-container {
 
 .theme-toggle-btn:hover svg {
     transform: rotate(15deg) scale(1.1);
-}
-
-/* Glassmorphism for scrolled state */
-.bg-opacity-80 {
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-}
-
-/* Staggered menu item animations */
-@keyframes slideUpStagger {
-    from {
-        opacity: 0;
-        transform: translateY(60px) scale(0.95);
-        filter: blur(8px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-        filter: blur(0);
-    }
-}
-
-.animate-slide-up-stagger {
-    animation: slideUpStagger 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-
-/* Mobile menu theme-based background */
-.mobile-menu-overlay {
-    background-color: var(--bg-primary);
-}
-
-.mobile-nav-link {
-    color: var(--text-secondary);
-    opacity: 0.6;
-    text-decoration: none;
-    font-family: 'Pixelation', monospace;
-}
-
-.mobile-nav-link:hover {
-    color: var(--text-primary);
-    opacity: 1;
-}
-
-.mobile-nav-link.active {
-    color: #CCFF00;
-}
-
-.mobile-nav-link .active-indicator {
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
-
-.mobile-nav-link.active .active-indicator {
-    opacity: 1;
-}
-
-@font-face {
-    font-family: 'Pixelation';
-    src: local('Courier New'), local('Monaco');
 }
 
 /* Smooth transitions */

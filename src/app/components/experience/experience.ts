@@ -13,6 +13,7 @@ interface Job {
 
 @Component({
   selector: 'app-experience',
+  standalone: true,
   imports: [CommonModule, GsapRevealDirective],
   templateUrl: './experience.html',
   styleUrl: './experience.css'
@@ -20,25 +21,11 @@ interface Job {
 export class ExperienceComponent {
   jobs: Job[] = [
     {
-      role: 'Senior Full Stack Developer',
-      company: 'Tech Innovations Inc.',
-      period: '2023 - Present',
-      description: 'Led the migration of legacy monolith to microservices architecture. Improved system scalability by 40% and reduced deployment time by 60%. Mentored junior developers and established code quality standards.',
-      tags: ['Angular', '.NET 8', 'Azure', 'Microservices']
-    },
-    {
-      role: 'Software Engineer',
-      company: 'Digital Solutions Ltd.',
-      period: '2021 - 2023',
-      description: 'Developed and maintained multiple client-facing web applications. Implemented real-time features using SignalR and optimized database queries for high-traffic endpoints.',
-      tags: ['React', 'Node.js', 'PostgreSQL', 'Docker']
-    },
-    {
-      role: 'Junior Developer',
-      company: 'Creative Web Agency',
-      period: '2019 - 2021',
-      description: 'Collaborated with designers to implement pixel-perfect user interfaces. Assisted in backend API development and wrote unit tests for critical components.',
-      tags: ['HTML/CSS', 'JavaScript', 'C#', 'SQL']
+      role: 'Full Stack Developer Intern',
+      company: 'Bridgeon Solutions LLP, Calicut',
+      period: 'Jul 2025 – Present',
+      description: 'Engineered 30+ RESTful API endpoints using ASP.NET Core. Designed and managed 10+ SQL Server tables and stored procedures. Improved database performance by 20–30% through optimized queries. Integrated backend APIs with 15+ Angular components for seamless data flow.',
+      tags: ['ASP.NET Core', 'Angular', 'SQL Server', 'Dapper', 'Agile']
     }
   ];
 }

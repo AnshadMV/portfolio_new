@@ -1,87 +1,157 @@
-<nav class="fixed z-50 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]" [ngClass]="isScrolled() ?
-        'top-4 w-[98%] md:w-[95%] left-1/2 -translate-x-1/2' :
+<nav class="fixed z-50 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]" [class.scrolled]="isScrolled()"
+    [ngClass]="isScrolled() ? 
+        'top-4 w-[95%] left-1/2 -translate-x-1/2' : 
         'top-8 w-auto min-w-[320px] md:min-w-[400px] left-1/2 -translate-x-1/2'">
 
-    <div class="navbar-container relative bg-[var(--bg-secondary)] border border-[var(--border-color)] flex items-center px-6 md:px-10 py-3 md:py-4 shadow-2xl"
-        [ngClass]="isScrolled() ? 'rounded-[1.5rem] bg-opacity-90 backdrop-blur-xl' : 'rounded-full bg-opacity-100'">
+    <div class="navbar-container relative flex items-center transition-all duration-700 h-[64px] md:h-[72px]"
+        [ngClass]="isScrolled() ? 'w-full justify-between gap-4' : 'justify-center gap-0'">
 
-        <!-- Logo (Left End) -->
-        <div class="flex-shrink-0 z-10">
+        <!-- Part 1: Logo (Moves to Left) -->
+        <div class="logo-box h-full bg-[var(--bg-secondary)] border border-[var(--border-color)] flex items-center transition-all duration-700"
+            [ngClass]="isScrolled() ? 'rounded-full px-6 md:px-10 bg-opacity-90 backdrop-blur-xl' : 'rounded-l-full px-8 md:px-12 border-r-0'">
             <a href="#hero" (click)="navigateToSection($event, '#hero')"
-                class="text-xl md:text-2xl font-black tracking-tighter transition-all duration-300">
-                <span class="text-[#CCFF00]">ANSHAD</span><span class="text-[var(--text-primary)]">.</span>
-            </a>
-        </div>
-
-        <!-- Desktop Menu (Exact Center - Only visible when expanded/scrolled) -->
-        <div class="hidden md:flex absolute left-1/2 -translate-x-1/2 items-center gap-1 bg-[var(--bg-primary)] border border-[var(--border-color)] rounded-full p-1.5 shadow-sm transition-all duration-500"
-            [ngClass]="isScrolled() ? 'opacity-100 scale-100' : 'opacity-0 scale-90 pointer-events-none'">
-            <ng-container *ngFor="let link of navLinks">
-                <a [href]="link.path" (click)="navigateToSection($event, link.path)" class="nav-link-item"
-                    [class]="activeSection() === link.id ? 
-                        'bg-[var(--text-primary)] text-[var(--bg-primary)] px-5 py-2 rounded-full text-[10px] font-black uppercase tracking-widest transition-all duration-300 shadow-md' : 
-                        'text-[var(--text-secondary)] hover:text-[var(--text-primary)] px-5 py-2 rounded-full text-[10px] font-black uppercase tracking-widest transition-all duration-300 hover:bg-[var(--bg-secondary)]'">
-                    {{ link.name }}
-                </a>
-            </ng-container>
-        </div>
-
-        <!-- Desktop Actions (Right End) -->
-        <div class="hidden md:flex items-center gap-6 ml-auto z-10">
-            <a [href]="resumeLink.path" target="_blank"
-                class="flex items-center gap-2 text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-all group">
-                <span class="text-[10px] font-black uppercase tracking-widest">RESUME</span>
-                <span class="w-1.5 h-1.5 rounded-full bg-[#CCFF00] group-hover:scale-125 transition-transform"></span>
-            </a>
-
-            <div class="w-[1px] h-4 bg-[var(--border-color)] opacity-50"></div>
-
-            <button (click)="toggleTheme()"
-                class="theme-toggle-btn w-10 h-10 flex items-center justify-center rounded-full bg-[var(--bg-primary)] hover:bg-[var(--bg-secondary)] border border-[var(--border-color)] transition-all duration-300 hover:scale-105 active:scale-95 shadow-sm">
-                <!-- Sun Icon -->
-                <svg *ngIf="themeService.currentTheme() === 'dark'" xmlns="http://www.w3.org/2000/svg"
-                    class="h-5 w-5 text-[#CCFF00]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <circle cx="12" cy="12" r="5" stroke-width="2" />
-                    <path stroke-linecap="round" stroke-width="2"
-                        d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" />
-                </svg>
-                <!-- Moon Icon -->
-                <svg *ngIf="themeService.currentTheme() === 'light'" xmlns="http://www.w3.org/2000/svg"
-                    class="h-5 w-5 text-[var(--text-primary)]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
-                </svg>
-            </button>
-        </div>
-
-        <!-- Mobile Menu Button -->
-        <div class="md:hidden flex items-center ml-auto z-10">
-            <button (click)="toggleMenu()"
-                class="relative w-10 h-10 flex items-center justify-center focus:outline-none bg-[var(--bg-primary)] rounded-full border border-[var(--border-color)]">
-                <div class="w-5 h-4 flex flex-col justify-between overflow-hidden">
-                    <span class="block w-full h-0.5 bg-[var(--text-primary)] rounded-full transition-all duration-300"
-                        [ngClass]="{'rotate-45 translate-y-1.5': isMenuOpen(), 'translate-y-0': !isMenuOpen()}"></span>
-                    <span class="block w-full h-0.5 bg-[var(--text-primary)] rounded-full transition-all duration-300"
-                        [ngClass]="{'opacity-0 translate-x-3': isMenuOpen(), 'opacity-100': !isMenuOpen()}"></span>
-                    <span class="block w-full h-0.5 bg-[var(--text-primary)] rounded-full transition-all duration-300"
-                        [ngClass]="{'-rotate-45 -translate-y-1.5': isMenuOpen(), 'translate-y-0': !isMenuOpen()}"></span>
+                class="logo-roll group flex items-center gap-[1px]">
+                <div class="char-wrapper relative overflow-hidden h-[32px] flex flex-col" style="--i:0">
+                    <span class="char text-xl md:text-2xl font-black tracking-tighter text-gradient">A</span>
+                    <span
+                        class="char text-xl md:text-2xl font-black tracking-tighter text-[var(--text-primary)]">A</span>
                 </div>
-            </button>
+                <div class="char-wrapper relative overflow-hidden h-[32px] flex flex-col" style="--i:1">
+                    <span class="char text-xl md:text-2xl font-black tracking-tighter text-gradient">N</span>
+                    <span
+                        class="char text-xl md:text-2xl font-black tracking-tighter text-[var(--text-primary)]">N</span>
+                </div>
+                <div class="char-wrapper relative overflow-hidden h-[32px] flex flex-col" style="--i:2">
+                    <span class="char text-xl md:text-2xl font-black tracking-tighter text-gradient">S</span>
+                    <span
+                        class="char text-xl md:text-2xl font-black tracking-tighter text-[var(--text-primary)]">S</span>
+                </div>
+                <div class="char-wrapper relative overflow-hidden h-[32px] flex flex-col" style="--i:3">
+                    <span class="char text-xl md:text-2xl font-black tracking-tighter text-gradient">H</span>
+                    <span
+                        class="char text-xl md:text-2xl font-black tracking-tighter text-[var(--text-primary)]">H</span>
+                </div>
+                <div class="char-wrapper relative overflow-hidden h-[32px] flex flex-col" style="--i:4">
+                    <span class="char text-xl md:text-2xl font-black tracking-tighter text-gradient">A</span>
+                    <span
+                        class="char text-xl md:text-2xl font-black tracking-tighter text-[var(--text-primary)]">A</span>
+                </div>
+                <div class="char-wrapper relative overflow-hidden h-[32px] flex flex-col" style="--i:5">
+                    <span class="char text-xl md:text-2xl font-black tracking-tighter text-gradient">D</span>
+                    <span
+                        class="char text-xl md:text-2xl font-black tracking-tighter text-[var(--text-primary)]">D</span>
+                </div>
+                <div class="char-wrapper relative overflow-hidden h-[32px] flex flex-col" style="--i:6">
+                    <span class="char text-xl md:text-2xl font-black tracking-tighter text-gradient">.</span>
+                    <span
+                        class="char text-xl md:text-2xl font-black tracking-tighter text-[var(--text-primary)]">.</span>
+                </div>
+            </a>
+        </div>
+
+        <!-- Part 2: Menu & Actions (Moves to Right) -->
+        <div class="menu-box h-full flex items-center bg-[var(--bg-secondary)] border border-[var(--border-color)] transition-all duration-700"
+            [ngClass]="isScrolled() ? 'rounded-full px-6 md:px-8 bg-opacity-90 backdrop-blur-xl ml-auto' : 'rounded-r-full px-8 md:px-12 border-l-0'">
+
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex items-center gap-1 bg-[var(--bg-primary)] border border-[var(--border-color)] rounded-full p-1.5 shadow-sm transition-all duration-500 overflow-hidden"
+                [ngClass]="isScrolled() ? 'opacity-100 scale-100 w-auto mr-8 px-4' : 'opacity-0 scale-90 w-0 pointer-events-none p-0 mr-0'">
+                <ng-container *ngFor="let link of navLinks">
+                    <a [href]="link.path" (click)="navigateToSection($event, link.path)"
+                        class="nav-link-item whitespace-nowrap"
+                        [class]="activeSection() === link.id ?
+                            'bg-[var(--text-primary)] text-[var(--bg-primary)] px-5 py-2 rounded-full text-[10px] font-black uppercase tracking-widest transition-all duration-300 shadow-md' :
+                            'text-[var(--text-secondary)] hover:text-[var(--text-primary)] px-5 py-2 rounded-full text-[10px] font-black uppercase tracking-widest transition-all duration-300 hover:bg-[var(--bg-secondary)]'">
+                        {{ link.name }}
+                    </a>
+                </ng-container>
+            </div>
+
+            <!-- Desktop Actions -->
+            <div class="hidden md:flex items-center gap-6 z-10">
+                <a [href]="resumeLink.path" target="_blank"
+                    class="flex items-center gap-2 text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-all group">
+                    <span class="text-[10px] font-black uppercase tracking-widest">RESUME</span>
+                    <span
+                        class="w-1.5 h-1.5 rounded-full bg-[var(--accent)] group-hover:scale-125 transition-transform"></span>
+                </a>
+
+                <div class="w-[1px] h-4 bg-[var(--border-color)] opacity-50"></div>
+
+                <button (click)="toggleTheme()"
+                    class="theme-toggle-btn w-10 h-10 flex items-center justify-center rounded-full bg-[var(--bg-primary)] hover:bg-[var(--bg-secondary)] border border-[var(--border-color)] transition-all duration-300 hover:scale-105 active:scale-95 shadow-sm">
+                    <svg *ngIf="themeService.currentTheme() === 'dark'" xmlns="http://www.w3.org/2000/svg"
+                        class="h-5 w-5 text-gradient" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <circle cx="12" cy="12" r="5" stroke-width="2" />
+                        <path stroke-linecap="round" stroke-width="2"
+                            d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" />
+                    </svg>
+                    <svg *ngIf="themeService.currentTheme() === 'light'" xmlns="http://www.w3.org/2000/svg"
+                        class="h-5 w-5 text-[var(--text-primary)]" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <div class="md:hidden flex items-center z-10">
+                <button (click)="toggleMenu()"
+                    class="relative w-10 h-10 flex items-center justify-center focus:outline-none bg-[var(--bg-primary)] rounded-full border border-[var(--border-color)]">
+                    <div class="w-5 h-4 flex flex-col justify-between overflow-hidden">
+                        <span
+                            class="block w-full h-0.5 bg-[var(--text-primary)] rounded-full transition-all duration-300"
+                            [ngClass]="{'rotate-45 translate-y-1.5': isMenuOpen(), 'translate-y-0': !isMenuOpen()}"></span>
+                        <span
+                            class="block w-full h-0.5 bg-[var(--text-primary)] rounded-full transition-all duration-300"
+                            [ngClass]="{'opacity-0 translate-x-3': isMenuOpen(), 'opacity-100': !isMenuOpen()}"></span>
+                        <span
+                            class="block w-full h-0.5 bg-[var(--text-primary)] rounded-full transition-all duration-300"
+                            [ngClass]="{'-rotate-45 -translate-y-1.5': isMenuOpen(), 'translate-y-0': !isMenuOpen()}"></span>
+                    </div>
+                </button>
+            </div>
         </div>
     </div>
 
-    <!-- Mobile Menu Overlay (Solid Black) -->
     <div class="fixed inset-0 z-[100] mobile-menu-overlay flex flex-col transition-all duration-500 ease-[cubic-bezier(0.85,0,0.15,1)] transform"
         [ngClass]="{'translate-y-0 opacity-100': isMenuOpen(), '-translate-y-full opacity-0 pointer-events-none': !isMenuOpen()}">
 
-        <!-- Header -->
         <div class="px-6 py-8 flex justify-between items-center">
             <a href="#hero" (click)="navigateToSection($event, '#hero')"
-                class="text-2xl font-black text-[var(--text-primary)] tracking-tighter">
-                ANSHAD<span class="text-[#CCFF00]">.</span>
+                class="logo-roll group flex items-center gap-[1px]">
+                <div class="char-wrapper relative overflow-hidden h-[32px] flex flex-col" style="--i:0">
+                    <span class="char text-2xl font-black tracking-tighter text-[var(--text-primary)]">A</span>
+                    <span class="char text-2xl font-black tracking-tighter text-gradient">A</span>
+                </div>
+                <!-- ... -->
+                <div class="char-wrapper relative overflow-hidden h-[32px] flex flex-col" style="--i:1">
+                    <span class="char text-2xl font-black tracking-tighter text-[var(--text-primary)]">N</span>
+                    <span class="char text-2xl font-black tracking-tighter text-gradient">N</span>
+                </div>
+                <div class="char-wrapper relative overflow-hidden h-[32px] flex flex-col" style="--i:2">
+                    <span class="char text-2xl font-black tracking-tighter text-[var(--text-primary)]">S</span>
+                    <span class="char text-2xl font-black tracking-tighter text-gradient">S</span>
+                </div>
+                <div class="char-wrapper relative overflow-hidden h-[32px] flex flex-col" style="--i:3">
+                    <span class="char text-2xl font-black tracking-tighter text-[var(--text-primary)]">H</span>
+                    <span class="char text-2xl font-black tracking-tighter text-gradient">H</span>
+                </div>
+                <div class="char-wrapper relative overflow-hidden h-[32px] flex flex-col" style="--i:4">
+                    <span class="char text-2xl font-black tracking-tighter text-[var(--text-primary)]">A</span>
+                    <span class="char text-2xl font-black tracking-tighter text-gradient">A</span>
+                </div>
+                <div class="char-wrapper relative overflow-hidden h-[32px] flex flex-col" style="--i:5">
+                    <span class="char text-2xl font-black tracking-tighter text-[var(--text-primary)]">D</span>
+                    <span class="char text-2xl font-black tracking-tighter text-gradient">D</span>
+                </div>
+                <div class="char-wrapper relative overflow-hidden h-[32px] flex flex-col" style="--i:6">
+                    <span class="char text-2xl font-black tracking-tighter text-[var(--text-primary)]">.</span>
+                    <span class="char text-2xl font-black tracking-tighter text-gradient">.</span>
+                </div>
             </a>
-            <button (click)="toggleMenu()"
-                class="text-[var(--text-primary)] hover:text-[#CCFF00] transition-colors p-2">
+            <button (click)="toggleMenu()" class="text-[var(--text-primary)] hover:text-gradient transition-colors p-2">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24"
                     stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12" />
@@ -89,7 +159,6 @@
             </button>
         </div>
 
-        <!-- Center Links -->
         <div class="flex-grow flex flex-col justify-center items-center text-center px-6">
             <div class="flex flex-col space-y-4 md:space-y-6">
                 <a *ngFor="let link of links; let i = index" [href]="link.path"
@@ -97,17 +166,16 @@
                     class="mobile-nav-link text-4xl sm:text-5xl font-bold uppercase tracking-widest transition-all duration-300 relative px-4"
                     [class.active]="activeSection() === link.id">
                     <span
-                        class="active-indicator h-3 w-3 bg-[#CCFF00] absolute -left-2 top-1/2 -translate-y-1/2"></span>
+                        class="active-indicator h-3 w-3 bg-[var(--accent)] absolute -left-2 top-1/2 -translate-y-1/2"></span>
                     {{ link.name }}
                 </a>
             </div>
         </div>
 
-        <!-- Mobile Menu Footer -->
         <div class="px-8 py-10 flex justify-between items-end border-t border-white/5">
             <div class="flex flex-col gap-1">
                 <a href="mailto:anshad@example.com"
-                    class="text-xs font-mono uppercase tracking-widest text-[#CCFF00] hover:underline">
+                    class="text-xs font-mono uppercase tracking-widest text-gradient hover:underline">
                     Hire me today
                 </a>
             </div>
@@ -118,4 +186,15 @@
             </div>
         </div>
     </div>
+    <!-- Water/Gooey Filter Definition -->
+    <svg xmlns="http://www.w3.org/2000/svg" version="1.1" class="hidden">
+        <defs>
+            <filter id="goo">
+                <feGaussianBlur in="SourceGraphic" stdDeviation="15" result="blur" />
+                <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 35 -15"
+                    result="goo" />
+                <feComposite in="SourceGraphic" in2="goo" operator="atop" />
+            </filter>
+        </defs>
+    </svg>
 </nav>

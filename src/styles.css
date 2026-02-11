@@ -23,16 +23,25 @@
   background: rgba(10, 10, 10, 0.7);
 }
 
+.text-gradient {
+  background: var(--accent-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
 
 
 :root {
   /* Light Theme Default */
   --bg-primary: #ffffff;
-  --bg-secondary: #f3f4f6;
-  --text-primary: #111827;
-  --text-secondary: #4b5563;
-  --accent: #3177ee;
-  --border-color: #e5e7eb;
+  --bg-secondary: #f8fafc;
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --accent: #3b82f6;
+  --accent-light: #0ea5e9;
+  --accent-gradient: linear-gradient(135deg, #2563eb 0%, #0ea5e9 100%);
+  --border-color: #e2e8f0;
 
   /* Font settings */
 
@@ -63,13 +72,16 @@ html.lenis body {
 
 
 :root.dark {
-  /* Dark Theme Default */
-  --bg-primary: #0a0a0a;
-  --bg-secondary: #171717;
-  --text-primary: #f9fafb;
-  --text-secondary: #9ca3af;
-  --accent: #ccfe00;
-  --border-color: #262626;
+  /* Dark Theme - Electric Blue Aesthetic */
+  --bg-primary: #050505;
+  --bg-secondary: #0f172a;
+  /* Deep navy tint */
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+  --accent: #0091ff;
+  --accent-light: #00f2ff;
+  --accent-gradient: linear-gradient(135deg, #0052cc 0%, #00c3ff 100%);
+  --border-color: #1e293b;
 }
 
 body {

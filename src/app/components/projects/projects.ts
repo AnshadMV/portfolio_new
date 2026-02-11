@@ -16,6 +16,7 @@ interface Project {
 
 @Component({
   selector: 'app-projects',
+  standalone: true,
   imports: [CommonModule, GsapRevealDirective],
   templateUrl: './projects.html',
   styleUrl: './projects.css'
@@ -31,45 +32,52 @@ export class ProjectsComponent implements AfterViewInit {
 
   projects: Project[] = [
     {
-      title: 'E-Commerce Platform',
-      description: 'A full-featured scalable e-commerce solution with microservices architecture, real-time inventory updates, and AI-powered recommendations.',
-      tags: ['.NET Core', 'Angular', 'RabbitMQ', 'Redis'],
+      title: 'Dominus',
+      description: 'Apple gadgets selling platform with secure REST APIs, JWT authentication, and NgRx state management. Optimized SQL performance with Dapper and stored procedures.',
+      tags: ['.NET Core', 'Angular', 'NgRx', 'JWT', 'Dapper', 'SQL Server'],
       link: '#',
       repo: '#',
       featured: true
-    },
-    {
-      title: 'Task Management System',
-      description: 'Collaborative project management tool with Kanban boards, real-time chat, and team performance analytics.',
-      tags: ['Angular', 'Firebase', 'Tailwind', 'RxJS'],
-      link: '#',
-      repo: '#'
-    },
-    {
-      title: 'Finance Dashboard',
-      description: 'Real-time financial data visualization tool for enterprise clients. Supports multi-currency transactions and complex reporting.',
-      tags: ['React', 'D3.js', 'Node.js', 'GraphQL'],
-      link: '#',
-      repo: '#'
-    },
-    {
-      title: 'AI Content Generator',
-      description: 'Machine learning powered content creation platform with natural language processing and automated SEO optimization.',
-      tags: ['Python', 'TensorFlow', 'FastAPI', 'Vue.js'],
-      link: '#',
-      repo: '#'
-    },
-    {
-      title: 'Cloud Monitoring Tool',
-      description: 'Infrastructure monitoring and alerting system for distributed applications across multiple cloud providers.',
-      tags: ['Go', 'Prometheus', 'Grafana', 'Kubernetes'],
-      link: '#',
-      repo: '#'
     }
   ];
 
   ngAfterViewInit() {
-    // Removed GSAP horizontal auto-scroll for simpler native scroll
-    // Users can now manually scroll horizontally with mouse/touch
+    if (!this.isBrowser) return;
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    let mm = gsap.matchMedia();
+
+    mm.add("(min-width: 769px)", () => {
+      const container = this.projectsContainer.nativeElement;
+      const getScrollWidth = () => container.scrollWidth - window.innerWidth;
+
+      gsap.to(container, {
+        x: () => -getScrollWidth(),
+        ease: 'none',
+        scrollTrigger: {
+          trigger: '#projects',
+          pin: true,
+          scrub: 1,
+          start: 'top top',
+          end: () => '+=' + getScrollWidth(),
+          invalidateOnRefresh: true,
+        }
+      });
+
+      gsap.to('.projects-bg-text h2', {
+        x: () => -getScrollWidth() * 0.3,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: '#projects',
+          scrub: 1,
+          start: 'top top',
+          end: () => '+=' + getScrollWidth(),
+          invalidateOnRefresh: true,
+        }
+      });
+
+      return () => { };
+    });
   }
 }

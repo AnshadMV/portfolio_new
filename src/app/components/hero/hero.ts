@@ -9,7 +9,7 @@ import { GsapRevealDirective } from '../../directives/gsap-reveal.directive';
   styleUrl: './hero.css'
 })
 export class HeroComponent implements OnInit {
-  dynamicWords = signal(['EXPERIENCES', 'SOLUTIONS', 'INTERFACES', 'PRODUCTS']);
+  dynamicWords = signal(['DEVELOPER', 'ENGINEER', 'CREATOR', 'ARCHITECT']);
   currentWordIndex = signal(0);
 
   ngOnInit() {

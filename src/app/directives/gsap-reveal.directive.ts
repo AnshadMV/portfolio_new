@@ -43,7 +43,7 @@ export class GsapRevealDirective implements OnInit, OnDestroy {
             {
                 y: this.yOffset,
                 opacity: 0,
-                filter: 'blur(5px)' // Reduced blur for faster perception
+                filter: 'blur(10px)'
             },
             {
                 y: 0,
@@ -51,13 +51,12 @@ export class GsapRevealDirective implements OnInit, OnDestroy {
                 filter: 'blur(0px)',
                 duration: this.duration,
                 delay: this.delay,
-                ease: 'power2.out',
+                ease: 'power3.out',
                 scrollTrigger: {
                     trigger: this.el.nativeElement,
-                    start: 'top 90%', // Trigger earlier for faster perception
-                    toggleActions: 'play none none none' // Play once only for performance 
-                    // 'play none none reverse' means play on enter, reverse on leave back up. 
-                    // Let's stick to 'play none none reverse' for that "alive" feel.
+                    start: 'top 95%', // Trigger as soon as it enters the bottom 5% of viewport
+                    toggleActions: 'play none none none',
+                    once: true // Ensure it stays visible once triggered
                 }
             }
         );

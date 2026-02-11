@@ -10,34 +10,34 @@
 
         <h1
             class="text-6xl sm:text-7xl md:text-8xl lg:text-[10rem] font-bold tracking-tighter leading-[0.85] text-[var(--text-primary)] px-4 sm:px-0 flex flex-col items-center">
-            <!-- Row 1: CRAFTING -->
+            <!-- Row 1: ANSHAD -->
             <span class="relative inline-block" appGsapReveal [delay]="0.4">
-                CR<span class="relative inline-block">A<span
-                        class="absolute -top-6 left-1/2 -translate-x-1/2 w-8 h-8 md:w-12 md:h-12 text-[#CCFF00] animate-spin-slow">
+                ANS<span class="relative inline-block">H<span
+                        class="absolute -top-6 left-1/2 -translate-x-1/2 w-8 h-8 md:w-12 md:h-12 text-[var(--accent)] animate-spin-slow">
                         <svg viewBox="0 0 24 24" fill="currentColor" class="w-full h-full">
-                            <path d="M12 0l3 9h9l-7 5.5 3 9.5-8-6-8 6 3-9.5-7-5.5h9z" />
+                            <path d="M12 3l2.5 6.5l6.5 2.5l-6.5 2.5l-2.5 6.5l-2.5-6.5l-6.5-2.5l6.5-2.5z" />
                         </svg>
-                    </span></span>FTING
+                    </span></span>AD
             </span>
 
-            <!-- Row 2: DIGITAL -->
+            <!-- Row 2: MUHAMMED V -->
             <span class="relative inline-block text-[var(--text-secondary)] -mt-2 md:-mt-4" appGsapReveal [delay]="0.6">
-                DI<span class="relative inline-block text-[var(--accent)]">G<span
-                        class="absolute -bottom-4 left-0 w-full h-2 md:h-3 text-[#CCFF00] animate-wiggle">
+                MUHA<span class="relative inline-block text-gradient">M<span
+                        class="absolute -bottom-4 left-0 w-full h-2 md:h-3 text-[var(--accent)] animate-wiggle">
                         <svg viewBox="0 0 100 20" preserveAspectRatio="none" fill="none" stroke="currentColor"
                             stroke-width="4">
                             <path d="M0,10 Q25,0 50,10 T100,10" />
                         </svg>
-                    </span></span>ITAL
+                    </span></span>MED
             </span>
 
             <!-- Row 3: DYNAMIC WORD -->
             <span class="relative inline-block mt-2 min-h-[1.2em] min-w-[300px]" appGsapReveal [delay]="0.8">
-                <span class="word-transition text-[#CCFF00]">
+                <span class="word-transition text-gradient">
                     {{ dynamicWords()[currentWordIndex()] }}
                 </span>
                 <span
-                    class="absolute -top-2 -right-4 w-6 h-10 md:w-10 md:h-16 text-[#CCFF00] animate-bounce-subtle pointer-events-none">
+                    class="absolute -top-2 -right-4 w-6 h-10 md:w-10 md:h-16 text-[var(--accent)] animate-bounce-subtle pointer-events-none">
                     <svg viewBox="0 0 24 24" fill="currentColor" class="w-full h-full">
                         <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
                     </svg>
@@ -45,28 +45,27 @@
             </span>
         </h1>
 
-        <h2 appGsapReveal [delay]="0.6"
+        <h2 appGsapReveal [delay]="1.0"
             class="text-lg sm:text-xl md:text-2xl font-light text-[var(--text-secondary)] mt-6 sm:mt-8 max-w-2xl mx-auto px-4 sm:px-0">
             Clean. Modern. Scalable.
         </h2>
 
-        <p appGsapReveal [delay]="0.8"
-            class="font-mono text-xs sm:text-sm md:text-base text-[var(--text-secondary)]/80 mt-3 sm:mt-4">
-            .NET Core // Angular // Cloud Native
+        <p appGsapReveal [delay]="1.2"
+            class="font-mono text-xs sm:text-sm md:text-base text-[var(--text-secondary)]/80 mt-2 sm:mt-4">
+            .NET Core // Angular // SQL
         </p>
-
-        <!-- CTAs -->
-        <div appGsapReveal [delay]="1.0"
-            class="mt-8 sm:mt-12 flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center px-4 sm:px-0">
-            <a href="#projects"
-                class="px-6 sm:px-8 py-3 sm:py-4 bg-[var(--text-primary)] text-[var(--bg-primary)] font-bold rounded-full hover:bg-[var(--accent)] hover:text-[var(--bg-primary)] transition-all duration-300 hover:scale-105 shadow-lg text-sm sm:text-base">
-                View Projects
-            </a>
-            <a href="#contact"
-                class="px-6 sm:px-8 py-3 sm:py-4 bg-[var(--bg-secondary)] text-[var(--text-primary)] font-bold rounded-full hover:bg-[var(--border-color)] transition-all duration-300 border border-[var(--border-color)] text-sm sm:text-base">
-                Get in Touch
-            </a>
+        <!-- Modern Subline -->
+        <div class="space-y-4 max-w-2xl mx-auto px-4" appGsapReveal [delay]="1.4">
+            <div
+                class="flex items-center justify-center gap-4 text-xs font-mono text-[var(--text-secondary)]/60 uppercase tracking-[0.4em]">
+                <span>Scalability</span>
+                <span class="w-1 h-1 rounded-full bg-[var(--border-color)]"></span>
+                <span>Performance</span>
+                <span class="w-1 h-1 rounded-full bg-[var(--border-color)]"></span>
+                <span>Experience</span>
+            </div>
         </div>
+
     </div>
 
     <!-- Background Animated Gradient -->
@@ -79,14 +78,4 @@
         </div>
     </div>
 
-    <!-- Scroll Indicator -->
-    <div
-        class="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce opacity-50 hover:opacity-100 transition-opacity cursor-pointer">
-        <a href="#profile">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-[var(--text-primary)]" fill="none"
-                viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-            </svg>
-        </a>
-    </div>
 </section>
