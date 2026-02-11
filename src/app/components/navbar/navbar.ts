@@ -13,9 +13,9 @@ export class NavbarComponent {
   themeService = inject(ThemeService);
   smoothScrollService = inject(SmoothScrollService);
   isMenuOpen = signal(false);
-  isNavVisible = signal(true);
   activeSection = signal('profile');
   scrollProgress = signal(0);
+  isScrolled = signal(false);
   private lastScrollTop = 0;
   private isBrowser: boolean;
   private scrollTimeout: any;
@@ -34,7 +34,7 @@ export class NavbarComponent {
     clearTimeout(this.scrollTimeout);
 
     // Update Active Section
-    const sections = ['profile', 'experience', 'projects', 'contact'];
+    const sections = ['hero', 'profile', 'experience', 'projects', 'contact'];
     for (const section of sections) {
       const element = document.getElementById(section);
       if (element) {
@@ -46,30 +46,10 @@ export class NavbarComponent {
       }
     }
 
-    // Always show navbar at the very top
-    if (scrollTop < 10) {
-      this.isNavVisible.set(true);
-      this.lastScrollTop = scrollTop;
+    // Update Scrolled State
+    this.isScrolled.set(scrollTop > 50);
 
-      // Update scroll progress
-      const docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-      const scrollPercent = (scrollTop / docHeight) * 100;
-      this.scrollProgress.set(scrollPercent);
-      return;
-    }
-
-    // Hide when scrolling down, show when scrolling up
-    if (scrollTop > this.lastScrollTop && scrollTop > 100) {
-      this.isNavVisible.set(false);
-    } else if (scrollTop < this.lastScrollTop) {
-      this.isNavVisible.set(true);
-    }
-
-    // Show navbar when scrolling stops
-    this.scrollTimeout = setTimeout(() => {
-      this.isNavVisible.set(true);
-    }, 150);
-
+    // Always update lastScrollTop
     this.lastScrollTop = scrollTop;
 
     // Scroll Progress
@@ -79,11 +59,15 @@ export class NavbarComponent {
   }
 
   navLinks = [
+    { name: 'Home', path: '#hero', id: 'hero' },
+    { name: 'Profile', path: '#profile', id: 'profile' },
     { name: 'Experience', path: '#experience', id: 'experience' },
     { name: 'Projects', path: '#projects', id: 'projects' },
+    { name: 'Contact', path: '#contact', id: 'contact' },
   ];
 
   allLinks = [
+    { name: 'Home', path: '#hero', id: 'hero' },
     { name: 'Profile', path: '#profile', id: 'profile' },
     { name: 'Experience', path: '#experience', id: 'experience' },
     { name: 'Projects', path: '#projects', id: 'projects' },

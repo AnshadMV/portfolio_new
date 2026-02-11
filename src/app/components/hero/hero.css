@@ -1,6 +1,52 @@
+@keyframes spin-slow {
+    from {
+        transform: translateX(-50%) rotate(0deg);
+    }
+
+    to {
+        transform: translateX(-50%) rotate(360deg);
+    }
+}
+
+.animate-spin-slow {
+    animation: spin-slow 8s linear infinite;
+}
+
+@keyframes wiggle {
+
+    0%,
+    100% {
+        transform: scaleX(1);
+    }
+
+    50% {
+        transform: scaleX(1.1) translateY(2px);
+    }
+}
+
+.animate-wiggle {
+    animation: wiggle 3s ease-in-out infinite;
+}
+
+@keyframes bounce-subtle {
+
+    0%,
+    100% {
+        transform: translateY(0) rotate(0deg);
+    }
+
+    50% {
+        transform: translateY(-10px) rotate(10deg);
+    }
+}
+
+.animate-bounce-subtle {
+    animation: bounce-subtle 4s ease-in-out infinite;
+}
+
 @keyframes slideUp {
     0% {
-        transform: translateY(20px);
+        transform: translateY(40px);
         opacity: 0;
     }
 
@@ -14,22 +60,22 @@
     animation: slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-.delay-100 {
-    animation-delay: 0.1s;
+.word-transition {
+    display: inline-block;
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    animation: wordIn 0.5s ease-out;
 }
 
-.delay-200 {
-    animation-delay: 0.2s;
-}
+@keyframes wordIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px) scale(0.95);
+        filter: blur(4px);
+    }
 
-.delay-300 {
-    animation-delay: 0.3s;
-}
-
-.delay-400 {
-    animation-delay: 0.4s;
-}
-
-.delay-500 {
-    animation-delay: 0.5s;
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        filter: blur(0);
+    }
 }

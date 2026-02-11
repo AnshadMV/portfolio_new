@@ -26,22 +26,21 @@
             </div>
         </div>
 
-        <!-- Skills Grid -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-            <div *ngFor="let group of skillGroups; let i = index" appGsapReveal [delay]="i * 0.15"
-                class="p-6 bg-[var(--bg-primary)] border border-[var(--border-color)] rounded-none hover:border-[var(--accent)] transition-all duration-300 group hover:-translate-y-1 hover:shadow-xl">
-                <h4
-                    class="text-lg font-bold mb-4 text-[var(--text-primary)] group-hover:text-[var(--accent)] transition-colors border-b border-[var(--border-color)] pb-2 inline-block">
-                    {{ group.category }}
-                </h4>
-                <ul class="space-y-3">
-                    <li *ngFor="let skill of group.skills"
-                        class="flex items-center text-[var(--text-secondary)] font-mono text-sm group-hover:text-[var(--text-primary)] transition-colors">
-                        <span
-                            class="w-1.5 h-1.5 mr-3 bg-[var(--text-secondary)] rounded-none group-hover:bg-[var(--accent)] transition-colors duration-300"></span>
-                        {{ skill }}
-                    </li>
-                </ul>
+        <!-- 3D Skills Display -->
+        <div class="skills-container grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-16">
+            <div *ngFor="let group of skillGroups; let i = index" appGsapReveal [delay]="i * 0.1"
+                class="skill-group-wrapper">
+                <div class="group-title">
+                    <span>{{ group.category }}</span>
+                </div>
+
+                <div class="skill-group-stack">
+                    <div *ngFor="let skill of group.skills; let j = index" class="skill-block"
+                        [style.--delay]="(i * 0.5 + j * 0.2) + 's'">
+                        <div class="face top">{{ skill }}</div>
+                        <div class="face front">{{ skill }}</div>
+                    </div>
+                </div>
             </div>
         </div>
 

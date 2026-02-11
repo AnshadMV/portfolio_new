@@ -8,11 +8,41 @@
             Available for new projects
         </div>
 
-        <h1 appGsapReveal [delay]="0.4"
-            class="text-5xl sm:text-6xl md:text-8xl lg:text-9xl font-bold tracking-tighter leading-[0.9] text-[var(--text-primary)] px-4 sm:px-0">
-            CRAFTING<br>
-            <span class="text-[var(--text-secondary)]">DIGITAL</span><br>
-            <span class="text-[var(--accent)]">EXPERIENCES</span>
+        <h1
+            class="text-6xl sm:text-7xl md:text-8xl lg:text-[10rem] font-bold tracking-tighter leading-[0.85] text-[var(--text-primary)] px-4 sm:px-0 flex flex-col items-center">
+            <!-- Row 1: CRAFTING -->
+            <span class="relative inline-block" appGsapReveal [delay]="0.4">
+                CR<span class="relative inline-block">A<span
+                        class="absolute -top-6 left-1/2 -translate-x-1/2 w-8 h-8 md:w-12 md:h-12 text-[#CCFF00] animate-spin-slow">
+                        <svg viewBox="0 0 24 24" fill="currentColor" class="w-full h-full">
+                            <path d="M12 0l3 9h9l-7 5.5 3 9.5-8-6-8 6 3-9.5-7-5.5h9z" />
+                        </svg>
+                    </span></span>FTING
+            </span>
+
+            <!-- Row 2: DIGITAL -->
+            <span class="relative inline-block text-[var(--text-secondary)] -mt-2 md:-mt-4" appGsapReveal [delay]="0.6">
+                DI<span class="relative inline-block text-[var(--accent)]">G<span
+                        class="absolute -bottom-4 left-0 w-full h-2 md:h-3 text-[#CCFF00] animate-wiggle">
+                        <svg viewBox="0 0 100 20" preserveAspectRatio="none" fill="none" stroke="currentColor"
+                            stroke-width="4">
+                            <path d="M0,10 Q25,0 50,10 T100,10" />
+                        </svg>
+                    </span></span>ITAL
+            </span>
+
+            <!-- Row 3: DYNAMIC WORD -->
+            <span class="relative inline-block mt-2 min-h-[1.2em] min-w-[300px]" appGsapReveal [delay]="0.8">
+                <span class="word-transition text-[#CCFF00]">
+                    {{ dynamicWords()[currentWordIndex()] }}
+                </span>
+                <span
+                    class="absolute -top-2 -right-4 w-6 h-10 md:w-10 md:h-16 text-[#CCFF00] animate-bounce-subtle pointer-events-none">
+                    <svg viewBox="0 0 24 24" fill="currentColor" class="w-full h-full">
+                        <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
+                    </svg>
+                </span>
+            </span>
         </h1>
 
         <h2 appGsapReveal [delay]="0.6"

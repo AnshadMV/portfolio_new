@@ -1,5 +1,4 @@
-
-import { Component } from '@angular/core';
+import { Component, signal, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { GsapRevealDirective } from '../../directives/gsap-reveal.directive';
 
@@ -9,8 +8,16 @@ import { GsapRevealDirective } from '../../directives/gsap-reveal.directive';
   templateUrl: './hero.html',
   styleUrl: './hero.css'
 })
-export class HeroComponent {
-  nameLines = ['Build.', 'Innovate.', 'Ship.'];
+export class HeroComponent implements OnInit {
+  dynamicWords = signal(['EXPERIENCES', 'SOLUTIONS', 'INTERFACES', 'PRODUCTS']);
+  currentWordIndex = signal(0);
+
+  ngOnInit() {
+    setInterval(() => {
+      this.currentWordIndex.update((i: number) => (i + 1) % this.dynamicWords().length);
+    }, 3000);
+  }
+
   subtitle = 'Full Stack Developer';
   techStack = '.NET Core // Angular // Cloud Native';
 }
