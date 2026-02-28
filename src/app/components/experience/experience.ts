@@ -6,8 +6,10 @@ import { GsapRevealDirective } from '../../directives/gsap-reveal.directive';
 interface Job {
   role: string;
   company: string;
+  companyShort: string;
   period: string;
-  description: string;
+  type: string;
+  bullets: string[];
   tags: string[];
 }
 
@@ -22,10 +24,20 @@ export class ExperienceComponent {
   jobs: Job[] = [
     {
       role: 'Full Stack Developer Intern',
-      company: 'Bridgeon Solutions LLP, Calicut',
+      company: 'Bridgeon Solutions, Calicut',
+      companyShort: 'Bridgeon Solutions',
       period: 'Jul 2025 – Present',
-      description: 'Engineered 30+ RESTful API endpoints using ASP.NET Core. Designed and managed 10+ SQL Server tables and stored procedures. Improved database performance by 20–30% through optimized queries. Integrated backend APIs with 15+ Angular components for seamless data flow.',
-      tags: ['ASP.NET Core', 'Angular', 'SQL Server', 'Dapper', 'Agile']
+      type: 'Internship',
+      bullets: [
+        'Engineered 30+ RESTful APIs using .NET Core and SQL technologies',
+        'Improved database performance by 20–30% through optimized SQL queries and Dapper integration',
+        'Designed and managed 10+ SQL Server tables and 12+ stored procedures with indexing',
+        'Integrated 15+ Angular components to ensure reliable data flow',
+        'Created 5+ reusable and responsive UI components using Angular & Tailwind CSS',
+        'Resolved 30+ bugs and functional issues across front-end and back-end modules',
+        'Contributed to 10+ bi-weekly Agile sprints, delivering features on schedule'
+      ],
+      tags: ['ASP.NET Core', 'Angular', 'SQL Server', 'Dapper', 'Tailwind CSS', 'Agile']
     }
   ];
 }

@@ -1,161 +1,169 @@
-<section id="profile" class="py-24 bg-[var(--bg-primary)] relative z-10 transition-colors duration-300">
+<section id="profile" class="profile-section py-24 bg-[var(--bg-primary)] relative z-10 transition-colors duration-300">
 
-    <!-- Top Meta Info -->
+    <!-- Top Meta Bar -->
     <div
-        class="max-w-7xl mx-auto px-6 md:px-12 flex justify-between items-center mb-12 opacity-40 font-mono text-xs uppercase tracking-[0.3em]">
+        class="max-w-7xl mx-auto px-6 md:px-12 flex justify-between items-center mb-16 opacity-40 font-mono text-xs uppercase tracking-[0.3em]">
         <span>Profile Summary</span>
         <span class="text-center hidden md:block">{{ location }}</span>
-        <span>Timeline (23-25)</span>
+        <span>Jul 2025 – Present</span>
     </div>
 
-    <!-- Personal Summary Area -->
-    <div class="max-w-7xl mx-auto px-6 md:px-12 mb-32">
+    <!-- ─── HERO IDENTITY BLOCK ─────────────────────────────────────── -->
+    <div class="max-w-7xl mx-auto px-6 md:px-12 mb-20">
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
-            <div class="lg:col-span-4">
-                <h2 class="text-3xl font-bold tracking-tighter uppercase mb-2">{{ name }}</h2>
-                <p class="text-[var(--accent)] font-mono text-sm tracking-widest uppercase mb-6">{{ role }}</p>
-                <div
-                    class="flex flex-col gap-2 text-[var(--text-secondary)] font-mono text-xs uppercase tracking-wider">
-                    <a [href]="'mailto:' + email" class="hover:text-[var(--accent)] transition-colors line-clamp-1">{{
-                        email }}</a>
-                    <span>{{ phone }}</span>
+
+            <!-- Left: Identity -->
+            <div class="lg:col-span-4 flex flex-col gap-6">
+                <div>
+                    <h2 class="text-3xl sm:text-4xl font-black tracking-tighter uppercase mb-1 leading-none">{{ name }}
+                    </h2>
+                    <p class="text-[var(--accent)] font-mono text-sm tracking-widest uppercase mt-2">{{ role }}</p>
+                </div>
+
+                <!-- Contact links -->
+                <div class="flex flex-col gap-2 font-mono text-xs">
+                    <a [href]="'mailto:' + email"
+                        class="group flex items-center gap-2 text-[var(--text-secondary)] hover:text-[var(--accent)] transition-colors">
+                        <span class="w-4 h-[1px] bg-current transition-all group-hover:w-8"></span>
+                        {{ email }}
+                    </a>
+                    <span class="flex items-center gap-2 text-[var(--text-secondary)]">
+                        <span class="w-4 h-[1px] bg-current"></span>
+                        {{ phone }}
+                    </span>
+                    <span class="flex items-center gap-2 text-[var(--text-secondary)]">
+                        <span class="w-4 h-[1px] bg-current"></span>
+                        {{ location }}
+                    </span>
+                </div>
+
+                <!-- Social links -->
+                <div class="flex gap-4">
+                    <a [href]="github" target="_blank" rel="noopener"
+                        class="profile-social-btn px-4 py-2 border border-[var(--border-color)] rounded-full font-mono text-xs uppercase tracking-wider hover:border-[var(--accent)] hover:text-[var(--accent)] transition-all duration-300 flex items-center gap-2">
+                        <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24">
+                            <path fill-rule="evenodd"
+                                d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
+                                clip-rule="evenodd" />
+                        </svg>
+                        GitHub
+                    </a>
+                    <a [href]="linkedin" target="_blank" rel="noopener"
+                        class="profile-social-btn px-4 py-2 border border-[var(--border-color)] rounded-full font-mono text-xs uppercase tracking-wider hover:border-[var(--accent)] hover:text-[var(--accent)] transition-all duration-300 flex items-center gap-2">
+                        <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24">
+                            <path
+                                d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+                        </svg>
+                        LinkedIn
+                    </a>
                 </div>
             </div>
+
+            <!-- Right: Summary -->
             <div class="lg:col-span-8">
                 <div #summaryContainer class="summary-wrapper relative">
                     <p
-                        class="summary-text text-3xl md:text-5xl leading-[1.1] tracking-tight text-[var(--text-primary)] font-medium">
-                        <span class="word-reveal">I</span>
-                        <span class="word-reveal">build</span>
-                        <span class="word-reveal text-gradient font-black">high-performance</span>
-                        <span class="word-reveal">applications</span>
-                        <span class="word-reveal">that</span>
-                        <span class="word-reveal">are</span>
-                        <span class="word-reveal special-word scalable">
-                            sc<span class="char-swap">a</span>l<span class="char-swap">a</span>ble
-                        </span>,
-                        <span class="word-reveal">clean,</span>
+                        class="summary-text text-3xl md:text-5xl leading-[1.15] tracking-tight text-[var(--text-primary)] font-medium">
+
+                        <span class="word-reveal">Full-Stack</span>
+                        <span class="word-reveal">Developer</span>
+                        <span class="word-reveal">with</span>
+                        <span class="word-reveal">hands-on</span>
+                        <span class="word-reveal">experience</span>
+                        <span class="word-reveal">in</span>
+                        <span class="word-reveal text-gradient font-black">end-to-end</span>
+                        <span class="word-reveal">product</span>
+                        <span class="word-reveal">design</span>
                         <span class="word-reveal">and</span>
-                        <span class="word-reveal">engineered</span>
-                        <span class="word-reveal">for</span>
-                        <span class="word-reveal special-word speed">
-                            sp<span class="lightning-wrapper">ee</span>d
-                        </span>.
-                        <br class="hidden md:block"><br class="hidden md:block">
-                        <span class="word-reveal">Focusing</span>
-                        <span class="word-reveal">on</span>
+                        <span class="word-reveal">development</span>
+                        <span class="word-reveal">using</span>
+                        <span class="word-reveal text-gradient font-black">C#,</span>
+                        <span class="word-reveal">ASP.NET</span>
+                        <span class="word-reveal">Core,</span>
+                        <span class="word-reveal">and</span>
+                        <span class="word-reveal">Angular.</span>
+
+                        <span class="word-reveal">Experienced</span>
+                        <span class="word-reveal">across</span>
                         <span class="word-reveal">the</span>
-                        <span class="word-reveal text-gradient font-black uppercase tracking-tighter">
-                            Best
-                            <svg class="squiggle absolute -top-4 -right-2 w-12 h-12 opacity-0" viewBox="0 0 100 100"
-                                fill="none" stroke="var(--accent)" stroke-width="4">
-                                <path d="M10,50 Q25,25 40,50 T70,50" />
-                            </svg>
-                        </span>
-                        <span class="word-reveal">while</span>
-                        <span class="word-reveal">ensuring</span>
-                        <span class="word-reveal">backend</span>
-                        <span class="word-reveal text-gradient font-black uppercase tracking-tighter">Excellence.</span>
+                        <span class="word-reveal">full</span>
+                        <span class="word-reveal">SDLC</span>
+                        <span class="word-reveal">—</span>
+                        <span class="word-reveal">building</span>
+                        <span class="word-reveal">scalable,</span>
+                        <span class="word-reveal">production-ready</span>
+                        <span class="word-reveal">applications.</span>
+
                     </p>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Skills List Title -->
-    <div class="max-w-7xl mx-auto px-6 md:px-12 mb-8 opacity-40 font-mono text-xs uppercase tracking-[0.3em]">
-        <span>Technical Stack</span>
+    <!-- ─── STATS BAR ─────────────────────────────────────────────────── -->
+    <div class="max-w-7xl mx-auto px-6 md:px-12 mb-24">
+        <div
+            class="stats-bar grid grid-cols-2 md:grid-cols-4 gap-px bg-[var(--border-color)] rounded-2xl overflow-hidden border border-[var(--border-color)]">
+            <div *ngFor="let stat of stats"
+                class="stat-card flex flex-col items-center justify-center py-10 px-6 bg-[var(--bg-primary)] group hover:bg-[var(--accent)]/5 transition-colors duration-500">
+                <span
+                    class="stat-number text-4xl md:text-5xl font-black text-[var(--text-primary)] group-hover:text-[var(--accent)] transition-colors duration-300 tracking-tighter">{{
+                    stat.value }}</span>
+                <span
+                    class="font-mono text-xs uppercase tracking-[0.2em] text-[var(--text-secondary)] mt-2 text-center">{{
+                    stat.label }}</span>
+            </div>
+        </div>
     </div>
 
-    <!-- Skills List -->
-    <div class="max-w-7xl mx-auto px-6 md:px-12 border-t border-white/10">
-        <div *ngFor="let group of skillGroups"
-            class="skill-row group py-12 md:py-16 flex flex-col md:flex-row items-baseline md:items-center justify-between border-b border-white/10 transition-colors duration-500 hover:bg-white/[0.02] px-4 cursor-default">
+    <!-- ─── TECHNICAL SKILLS ─────────────────────────────────────────── -->
+    <div class="skills-section max-w-7xl mx-auto px-6 md:px-12">
 
-            <!-- Category ID -->
-            <div
-                class="category-col font-mono text-xs opacity-60 uppercase tracking-[0.2em] mb-4 md:mb-0 w-full md:w-[200px]">
-                {{ group.id }}
-            </div>
+        <div class="mb-8 flex items-center gap-6 opacity-40 font-mono text-xs uppercase tracking-[0.3em]">
+            <span>Technical Stack</span>
+            <div class="flex-grow h-[1px] bg-current opacity-30"></div>
+        </div>
 
-            <!-- Main Skill Label (Hidden on hover) -->
-            <div class="title-col flex-grow text-center relative flex items-center justify-center min-h-[100px]">
-                <h2
-                    class="text-5xl md:text-[6vw] font-light tracking-tighter transition-all duration-700 group-hover:opacity-0 group-hover:scale-95 select-none">
-                    {{ group.category.split(' ')[0] }}
-                </h2>
+        <div class="border-t border-[var(--border-color)]">
+            <div *ngFor="let group of skillGroups"
+                class="skill-row group py-8 md:py-12 flex flex-col md:flex-row items-start md:items-center justify-between border-b border-[var(--border-color)] transition-all duration-500 hover:bg-[var(--accent)]/[0.03] px-4 cursor-default">
 
-                <!-- Revealed Skills Center (Center positioned, replaces Label) -->
+                <!-- ID -->
                 <div
-                    class="skills-reveal absolute inset-0 flex flex-wrap justify-center items-center gap-x-8 gap-y-4 opacity-0 translate-y-4 pointer-events-none transition-all duration-700 group-hover:opacity-100 group-hover:translate-y-0">
-                    <span *ngFor="let item of group.skills"
-                        class="text-[var(--accent)] font-mono text-lg md:text-2xl tracking-[0.2em] uppercase flex items-center gap-3">
-                        <span
-                            class="w-1.5 h-1.5 rounded-full shadow-[0_0_10px_var(--accent)] bg-[var(--accent)] md:bg-none md:bg-[var(--accent-gradient)]"></span>
-                        {{ item }}
-                    </span>
+                    class="category-col font-mono text-xs opacity-50 uppercase tracking-[0.2em] mb-4 md:mb-0 md:w-[220px] shrink-0">
+                    {{ group.id }}
+                </div>
+
+                <!-- Category label (always visible) and skills (always visible) -->
+                <div class="title-col flex-grow relative flex flex-col justify-center py-4">
+                    <h3
+                        class="text-3xl md:text-5xl lg:text-5xl font-light tracking-tighter transition-all duration-700 group-hover:translate-x-2 select-none mb-4 md:mb-6">
+                        {{ group.category }}
+                    </h3>
+
+                    <!-- Revealed skills -->
+                    <div
+                        class="skills-reveal flex flex-wrap items-center gap-x-6 gap-y-3 transition-all duration-700 group-hover:translate-x-4">
+                        <span *ngFor="let item of group.skills"
+                            class="text-[var(--accent)] font-mono text-sm md:text-lg tracking-[0.15em] uppercase flex items-center gap-2">
+                            <span
+                                class="w-1.5 h-1.5 rounded-full bg-[var(--accent)] shadow-[0_0_8px_var(--accent)]"></span>
+                            {{ item }}
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Arrow indicator -->
+                <div
+                    class="details-col font-mono text-xs opacity-0 group-hover:opacity-100 transition-opacity duration-500 text-[var(--accent)] md:w-[80px] text-right shrink-0 hidden md:block">
+                    <svg class="w-5 h-5 ml-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                    </svg>
                 </div>
             </div>
-
-            <!-- Standardized Timeline -->
-            <div class="details-col font-mono text-xs opacity-60 text-right w-full md:w-[200px]">
-                <span>(23)-(25)</span>
-            </div>
         </div>
     </div>
 
-    <!-- Pinned Scroll-Text Section -->
-    <div class="scroll-text-container py-32 relative overflow-hidden h-screen flex items-center justify-center">
-        <!-- Persistent Background Text -->
-        <div class="absolute inset-0 flex items-center justify-center opacity-[0.03] pointer-events-none z-0">
-            <p class="text-[25vw] font-black uppercase leading-none select-none tracking-tighter">ANSHAD</p>
-        </div>
 
-        <div #textContainer class="text-group-wrapper relative w-full h-full flex items-center justify-center z-10">
 
-            <div class="scroll-phrase opacity-0 absolute text-center w-full">
-                <h3 class="text-6xl md:text-[8vw] font-black uppercase tracking-tighter leading-none">
-                    CREATE WITH <span class="text-transparent text-outline">VISION</span>
-                </h3>
-            </div>
-
-            <div class="scroll-phrase opacity-0 absolute text-center w-full">
-                <h3 class="text-6xl md:text-[8vw] font-black uppercase tracking-tighter leading-none">
-                    INNOVATE <span class="text-gradient">ALWAYS</span>
-                </h3>
-            </div>
-
-            <div class="scroll-phrase opacity-0 absolute text-center w-full">
-                <h3
-                    class="text-6xl md:text-[8vw] font-black uppercase tracking-tighter leading-none text-outline text-transparent">
-                    BUILD THE <span class="text-[var(--text-primary)]">FUTURE</span>
-                </h3>
-            </div>
-
-            <div class="scroll-phrase opacity-0 absolute text-center w-full">
-                <h3 class="text-6xl md:text-[8vw] font-black uppercase tracking-tighter leading-none">
-                    FOCUS ON <span class="text-gradient">SCALABILITY</span>
-                </h3>
-            </div>
-
-            <div class="scroll-phrase opacity-0 absolute text-center w-full">
-                <h3 class="text-6xl md:text-[8vw] font-black uppercase tracking-tighter leading-none">
-                    CLEAN <span class="text-transparent text-outline">ARCHITECTURE</span>
-                </h3>
-            </div>
-
-            <div class="scroll-phrase opacity-0 absolute text-center w-full">
-                <h3 class="text-6xl md:text-[8vw] font-black uppercase tracking-tighter leading-none">
-                    USER <span class="text-gradient">CENTRIC</span> DESIGN
-                </h3>
-            </div>
-
-            <div class="scroll-phrase opacity-0 absolute text-center w-full">
-                <h3
-                    class="text-6xl md:text-[8vw] font-black uppercase tracking-tighter leading-none text-transparent text-outline">
-                    LIMITLESS <span class="text-[var(--text-primary)]">POSSIBILITIES</span>
-                </h3>
-            </div>
-        </div>
-    </div>
 </section>

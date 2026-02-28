@@ -1,0 +1,12 @@
+#education {
+    overflow-x: hidden;
+}
+
+.education-strip {
+    backdrop-filter: blur(8px);
+    transition: border-color 0.3s ease;
+}
+
+.education-strip:hover {
+    border-color: var(--accent);
+}

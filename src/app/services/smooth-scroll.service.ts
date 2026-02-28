@@ -26,7 +26,7 @@ export class SmoothScrollService {
     private initLenis() {
         this.ngZone.runOutsideAngular(() => {
             this.lenis = new Lenis({
-                autoRaf: true,
+                // Do NOT use autoRaf: true when driving Lenis through GSAP's ticker
                 lerp: 0.1, // Smoothness (0-1)
                 wheelMultiplier: 1.2, // Scroll speed
             });
@@ -34,9 +34,9 @@ export class SmoothScrollService {
             // Synchronize Lenis with GSAP ScrollTrigger
             this.lenis.on('scroll', ScrollTrigger.update);
 
-            // Add Lenis's requestAnimationFrame to GSAP's ticker for better sync
+            // Drive Lenis via GSAP ticker so they stay in sync (time is in seconds, convert to ms)
             gsap.ticker.add((time) => {
-                this.lenis?.raf(time * 1000); // 
+                this.lenis?.raf(time * 1000);
             });
 
             gsap.ticker.lagSmoothing(0);
@@ -47,7 +47,7 @@ export class SmoothScrollService {
         return this.lenis;
     }
 
-    public scrollTo(target: string | HTMLElement, options?: any) {
+    public scrollTo(target: string | HTMLElement | number, options?: any) {
         this.lenis?.scrollTo(target, options);
     }
 }

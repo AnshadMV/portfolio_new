@@ -1,0 +1,33 @@
+/* Experience Section */
+#experience {
+    isolation: isolate;
+}
+
+.timeline-dot {
+    z-index: 2;
+}
+
+.experience-card {
+    transition: box-shadow 0.5s ease, border-color 0.5s ease;
+}
+
+.experience-card:hover {
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+}
+
+.metric-chip {
+    transition: background-color 0.3s ease;
+}
+
+.group:hover .metric-chip {
+    background-color: rgba(var(--accent-rgb, 0, 145, 255), 0.08);
+}
+
+/* Light theme */
+:root:not(.dark) .experience-card {
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+}
+
+:root:not(.dark) #experience>div:first-child p {
+    opacity: 0.04;
+}

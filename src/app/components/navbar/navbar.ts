@@ -13,7 +13,7 @@ export class NavbarComponent {
   themeService = inject(ThemeService);
   smoothScrollService = inject(SmoothScrollService);
   isMenuOpen = signal(false);
-  activeSection = signal('profile');
+  activeSection = signal('hero');
   scrollProgress = signal(0);
   isScrolled = signal(false);
   private lastScrollTop = 0;
@@ -33,18 +33,24 @@ export class NavbarComponent {
     // Clear existing timeout
     clearTimeout(this.scrollTimeout);
 
-    // Update Active Section
-    const sections = ['hero', 'profile', 'experience', 'projects', 'contact'];
+    // Update Active Section - improved detection
+    const sections = ['hero', 'profile', 'projects', 'experience', 'education', 'contact'];
+    let currentSection = this.activeSection();
+
+    const threshold = typeof window !== 'undefined' ? window.innerHeight / 3 : 200;
+
     for (const section of sections) {
       const element = document.getElementById(section);
       if (element) {
         const rect = element.getBoundingClientRect();
-        if (rect.top <= 100 && rect.bottom >= 100) {
-          this.activeSection.set(section);
-          break;
+        // A section is active if it spans across our threshold (top third of the screen)
+        if (rect.top <= threshold && rect.bottom > threshold) {
+          currentSection = section;
         }
       }
     }
+
+    this.activeSection.set(currentSection);
 
     // Update Scrolled State
     this.isScrolled.set(scrollTop > 50);
@@ -61,16 +67,18 @@ export class NavbarComponent {
   navLinks = [
     { name: 'Home', path: '#hero', id: 'hero' },
     { name: 'Profile', path: '#profile', id: 'profile' },
-    { name: 'Experience', path: '#experience', id: 'experience' },
     { name: 'Projects', path: '#projects', id: 'projects' },
+    { name: 'Experience', path: '#experience', id: 'experience' },
+    { name: 'Education', path: '#education', id: 'education' },
     { name: 'Contact', path: '#contact', id: 'contact' },
   ];
 
   allLinks = [
     { name: 'Home', path: '#hero', id: 'hero' },
     { name: 'Profile', path: '#profile', id: 'profile' },
-    { name: 'Experience', path: '#experience', id: 'experience' },
     { name: 'Projects', path: '#projects', id: 'projects' },
+    { name: 'Experience', path: '#experience', id: 'experience' },
+    { name: 'Education', path: '#education', id: 'education' },
     { name: 'Contact', path: '#contact', id: 'contact' },
     { name: 'Resume', path: '/resume.pdf', id: 'resume' }
   ];
@@ -107,10 +115,22 @@ export class NavbarComponent {
     if (path.startsWith('#')) {
       event.preventDefault();
       const targetId = path.substring(1);
-      this.smoothScrollService.scrollTo(`#${targetId}`, {
-        offset: -80,
-        duration: 0.8, // Faster navigation
-      });
+
+      // Special handling for hero section - scroll to top
+      if (targetId === 'hero') {
+        this.smoothScrollService.scrollTo(0, {
+          duration: 1.5,
+          lock: true, // prevent user interaction during scroll
+        });
+      } else {
+        const element = document.getElementById(targetId);
+        if (element) {
+          this.smoothScrollService.scrollTo(element, {
+            offset: -80,
+            duration: 1.2,
+          });
+        }
+      }
       this.closeMenu();
     }
   }

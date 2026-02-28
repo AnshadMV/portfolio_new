@@ -11,12 +11,11 @@ import { GsapRevealDirective } from '../../directives/gsap-reveal.directive';
   styleUrl: './contact.css'
 })
 export class ContactComponent {
-  email = 'anshad.contact@gmail.com';
+  email = 'anshadcontacts@gmail.com';
   phone = '+91 9400300166';
 
   socials = [
     { name: 'GitHub', link: 'https://github.com/AnshadMV' },
     { name: 'LinkedIn', link: 'https://www.linkedin.com/in/anshadmv' },
-    { name: 'Portfolio', link: '#' }
   ];
 }

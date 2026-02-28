@@ -1,12 +1,13 @@
 
-import { Component, AfterViewInit, Inject, PLATFORM_ID } from '@angular/core';
-import { isPlatformBrowser } from '@angular/common';
+import { Component, AfterViewInit, Inject, PLATFORM_ID, HostListener } from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { NavbarComponent } from './components/navbar/navbar';
 import { HeroComponent } from './components/hero/hero';
 import { ProfileComponent } from './components/profile/profile';
 import { ExperienceComponent } from './components/experience/experience';
 import { ProjectsComponent } from './components/projects/projects';
+import { EducationComponent } from './components/education/education';
 import { ContactComponent } from './components/contact/contact';
 
 import { FooterComponent } from './components/footer/footer';
@@ -18,12 +19,14 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
   selector: 'app-root',
   standalone: true,
   imports: [
+    CommonModule,
     RouterOutlet,
     NavbarComponent,
     HeroComponent,
     ProfileComponent,
-    ExperienceComponent,
     ProjectsComponent,
+    ExperienceComponent,
+    EducationComponent,
     ContactComponent,
     FooterComponent
   ],
@@ -32,6 +35,20 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 })
 export class App implements AfterViewInit {
   private isBrowser: boolean;
+  public showScrollToTop: boolean = false;
+
+  @HostListener('window:scroll', [])
+  onWindowScroll() {
+    if (this.isBrowser) {
+      this.showScrollToTop = window.scrollY > 300;
+    }
+  }
+
+  scrollToTop() {
+    if (this.isBrowser) {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  }
 
   constructor(
     private smoothScroll: SmoothScrollService,
@@ -57,7 +74,7 @@ export class App implements AfterViewInit {
           end: 'bottom top',
           scrub: true,
           pin: true,
-          pinSpacing: false
+          pinSpacing: true
         }
       });
 
@@ -74,6 +91,21 @@ export class App implements AfterViewInit {
         opacity: 0,
         scrollTrigger: {
           trigger: 'app-profile',
+          start: 'top bottom',
+          end: 'top center',
+          scrub: true
+        }
+      });
+    }
+
+    // Projects Transition
+    const projects = document.querySelector('app-projects');
+    if (projects) {
+      gsap.from(projects, {
+        y: 100,
+        opacity: 0,
+        scrollTrigger: {
+          trigger: 'app-projects',
           start: 'top bottom',
           end: 'top center',
           scrub: true

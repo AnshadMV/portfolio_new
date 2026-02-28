@@ -1,111 +1,291 @@
 <section id="projects" class="relative bg-[var(--bg-primary)] overflow-hidden min-h-screen flex items-center">
 
-    <!-- Background Large Title (Fixed or moving slowly) -->
+    <!-- Background Large Title -->
     <div
         class="projects-bg-text absolute inset-0 pointer-events-none flex items-center justify-center overflow-hidden z-0">
-        <h2 class="text-[25vw] font-black opacity-5 uppercase select-none whitespace-nowrap tracking-tighter">
+        <h2 class="text-[25vw] font-black opacity-[0.04] uppercase select-none whitespace-nowrap tracking-tighter">
             PRODUCTIONS • CREATIONS • SOLUTIONS
         </h2>
     </div>
 
-    <!-- Horizontal Wrapper -->
-    <div #projectsContainer
-        class="horizontal-container flex items-center h-full gap-[10vw] px-[10vw] relative z-10 transition-transform duration-100 ease-out">
+    <!-- Horizontal Scroll Wrapper -->
+    <div #projectsContainer class="horizontal-container flex items-center h-full gap-[7vw] px-[10vw] relative z-10">
 
         <!-- Intro Slide -->
-        <div class="project-panel shrink-0 w-[400px] md:w-[600px] flex flex-col justify-center">
-            <h3 class="text-gradient font-mono text-xl tracking-[0.2em] uppercase mb-4">Selected Work</h3>
-            <h2 class="text-6xl md:text-8xl font-black text-[var(--text-primary)] leading-tight tracking-tighter">
+        <div class="project-panel shrink-0 w-full sm:w-[450px] flex flex-col justify-center">
+            <h3 class="text-gradient font-mono text-sm tracking-[0.3em] uppercase mb-4">Selected Work</h3>
+            <h2
+                class="text-5xl sm:text-6xl md:text-8xl font-black text-[var(--text-primary)] leading-tight tracking-tighter">
                 FEATURED<br><span class="text-gradient">PROJECTS</span>
             </h2>
-            <div class="mt-12 flex items-center gap-6">
-                <div class="h-[1px] w-20 bg-[var(--accent)]"></div>
-                <p class="text-[var(--text-secondary)] font-mono text-sm uppercase tracking-widest">Scroll to explore
+            <div class="mt-10 flex items-center gap-6">
+                <div class="h-[1px] w-16 bg-[var(--accent)]"></div>
+                <p class="text-[var(--text-secondary)] font-mono text-xs uppercase tracking-widest">Scroll to explore
                 </p>
             </div>
+            <p class="mt-6 text-[var(--text-secondary)] text-lg md:text-xl leading-relaxed max-w-sm">
+                Production-ready applications built with clean architecture, scalable backends, and polished frontends.
+            </p>
         </div>
 
         <!-- Project Panels -->
         <div *ngFor="let project of projects; let i = index"
-            class="project-panel shrink-0 min-w-[80vw] md:min-w-[60vw] lg:min-w-[50vw] flex flex-col md:flex-row items-center gap-12 group">
+            class="project-panel shrink-0 w-[85vw] md:w-[60vw] lg:w-[420px] flex flex-col group">
 
-            <!-- Large Card Representation (Mockup Look) -->
-            <div
-                class="project-visual relative w-full aspect-video bg-[#050505] rounded-3xl overflow-hidden border border-white/10 group-hover:border-[var(--accent)]/50 transition-all duration-700 shadow-[0_0_50px_rgba(0,0,0,0.5)]">
-                <!-- Inner Screen / Mockup -->
-                <div
-                    class="absolute inset-[8%] bg-[#080808] rounded-2xl border border-white/5 shadow-[inset_0_0_20px_rgba(255,255,255,0.02)] flex items-center justify-center overflow-hidden">
-                    <!-- Abstract Visualization -->
-                    <div class="absolute inset-0 opacity-20">
+            <!-- Project Card -->
+            <div class="project-card relative w-full rounded-3xl overflow-hidden border border-[var(--border-color)] group-hover:border-[var(--accent)]/60 transition-all duration-700"
+                [class.has-image]="!!project.image">
+
+                <!-- Image (if available) -->
+                <div *ngIf="project.image"
+                    class="project-image-wrapper relative w-full aspect-video overflow-hidden bg-[#050505]">
+                    <img [src]="project.image" [alt]="project.title"
+                        class="w-full h-full object-cover object-top opacity-90 group-hover:scale-105 transition-transform duration-1000 ease-out" />
+                    <!-- Overlay gradient -->
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-transparent opacity-80">
+                    </div>
+                    <!-- Period badge -->
+                    <div
+                        class="absolute top-4 right-4 px-3 py-1 bg-black/60 backdrop-blur-sm rounded-full border border-white/10 font-mono text-xs text-white/70">
+                        {{ project.period }}
+                    </div>
+                </div>
+
+                <!-- No-image visualization -->
+                <div *ngIf="!project.image"
+                    class="project-visual relative w-full aspect-video bg-[#050505] flex items-center justify-center overflow-hidden">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-br from-[var(--accent)]/10 via-transparent to-transparent">
+                    </div>
+                    <div class="text-[12vw] font-black text-white/5 uppercase tracking-tighter select-none">{{
+                        project.title }}</div>
+                    <div
+                        class="absolute top-4 right-4 px-3 py-1 bg-black/40 rounded-full border border-white/10 font-mono text-xs text-white/60">
+                        {{ project.period }}
+                    </div>
+                    <!-- Pulse dot -->
+                    <div
+                        class="absolute center-dot w-16 h-16 border border-white/10 rounded-full flex items-center justify-center">
                         <div
-                            class="absolute top-0 right-0 w-full h-full bg-gradient-to-bl from-[var(--accent)]/20 to-transparent">
+                            class="w-3 h-3 bg-[var(--accent)] rounded-full shadow-[0_0_20px_var(--accent)] animate-pulse">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project Info Bar -->
+                <div class="project-info-bar px-8 py-6 bg-[var(--bg-primary)]/95 backdrop-blur-sm">
+                    <div class="flex items-start justify-between gap-4 mb-4">
+                        <div>
+                            <div class="flex items-center gap-3 mb-2">
+                                <span class="text-gradient font-black text-lg">0{{ i + 1 }}</span>
+                                <div class="h-[1px] w-12 bg-[var(--border-color)]"></div>
+                                <span
+                                    class="font-mono text-xs uppercase tracking-widest text-[var(--text-secondary)]">{{
+                                    project.subtitle }}</span>
+                            </div>
+                            <h3 class="text-3xl md:text-4xl font-black text-[var(--text-primary)] tracking-tighter">{{
+                                project.title }}</h3>
+                        </div>
+                        <div class="flex gap-3 shrink-0 mt-1">
+                            <a [href]="project.repo" target="_blank"
+                                class="p-2.5 border border-[var(--border-color)] rounded-full hover:border-[var(--accent)] hover:text-[var(--accent)] transition-all duration-300">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+                                </svg>
+                            </a>
+                            <a [href]="project.link" target="_blank"
+                                class="px-5 py-2 bg-[var(--text-primary)] text-[var(--bg-primary)] rounded-full font-bold text-xs hover:bg-[var(--accent)] transition-colors duration-300 flex items-center gap-2">
+                                <span>View</span>
+                                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                                </svg>
+                            </a>
                         </div>
                     </div>
 
+                    <p
+                        class="text-[var(--text-secondary)] text-base md:text-lg leading-relaxed mb-6 font-medium tracking-tight">
+                        {{
+                        project.description }}</p>
+
+                    <!-- Highlights -->
+                    <ul class="flex flex-col gap-2 mb-5">
+                        <li *ngFor="let h of project.highlights"
+                            class="flex items-start gap-2 text-xs text-[var(--text-secondary)] font-mono">
+                            <span
+                                class="w-1 h-1 rounded-full bg-[var(--accent)] mt-1.5 shrink-0 shadow-[0_0_6px_var(--accent)]"></span>
+                            {{ h }}
+                        </li>
+                    </ul>
+
+                    <!-- Tags -->
+                    <div class="flex flex-wrap gap-2">
+                        <span *ngFor="let tag of project.tags"
+                            class="px-3 py-1 text-xs font-mono border border-[var(--border-color)] text-[var(--text-secondary)] rounded-full group-hover:border-[var(--accent)]/40 group-hover:text-[var(--text-primary)] transition-colors duration-500">
+                            {{ tag }}
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Ghost title overlay -->
+                <div class="absolute -bottom-6 -left-4 z-20 pointer-events-none overflow-hidden">
                     <div
-                        class="relative z-10 text-4xl md:text-7xl text-white font-black opacity-10 uppercase tracking-tighter">
-                        {{ project.title }}
+                        class="text-[8rem] md:text-[12rem] font-black text-white mix-blend-overlay opacity-[0.04] uppercase leading-none select-none tracking-tighter">
+                        {{ project.title.substring(0, 5) }}
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- End Slide -->
+        <div class="project-panel shrink-0 w-[300px] flex flex-col justify-center text-center gap-4">
+            <p class="text-[var(--accent)] font-mono text-xs uppercase tracking-widest">More work</p>
+            <a href="https://github.com/AnshadMV" target="_blank"
+                class="text-4xl font-black hover:text-[var(--accent)] transition-colors underline decoration-[var(--accent)] underline-offset-8">
+                GitHub
+            </a>
+            <p class="text-[var(--text-secondary)] text-sm font-mono">@AnshadMV</p>
+        </div>
+
+    </div>
+</section>
+<!-- ════════════════════════════════════════════════════════════════
+     OTHER PROJECTS — Separate section, outside the pinned scroll
+     ════════════════════════════════════════════════════════════════ -->
+<section id="other-projects"
+    class="py-24 bg-[var(--bg-primary)] border-t border-[var(--border-color)] relative overflow-hidden">
+
+    <!-- Faint BG label -->
+    <div
+        class="absolute inset-0 flex items-center justify-center pointer-events-none opacity-[0.02] select-none overflow-hidden">
+        <p class="text-[18vw] font-black uppercase tracking-tighter whitespace-nowrap">OTHER WORK</p>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
+
+        <!-- Section header -->
+        <div class="mb-16 flex flex-col md:flex-row md:items-end md:justify-between gap-4">
+            <div>
+                <p class="font-mono text-xs uppercase tracking-[0.4em] text-[var(--accent)] mb-3">More Projects</p>
+                <h2 class="text-4xl md:text-6xl font-black tracking-tighter text-[var(--text-primary)] leading-none">
+                    Other <span class="text-outline-text">Work</span></h2>
+            </div>
+            <p class="text-[var(--text-secondary)] font-mono text-sm max-w-xs text-right hidden md:block">
+                Side projects & freelance work — built out of curiosity and client needs.
+            </p>
+        </div>
+
+        <!-- Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+
+            <div *ngFor="let proj of otherProjects; let i = index"
+                class="other-project-card group relative rounded-2xl border border-[var(--border-color)] bg-[var(--bg-secondary)]/40 hover:border-[var(--accent)]/50 transition-all duration-500 overflow-hidden">
+
+                <!-- Image Banner -->
+                <div *ngIf="proj.image" class="other-card-image relative w-full overflow-hidden"
+                    style="aspect-ratio: 16/7">
+                    <img [src]="proj.image" [alt]="proj.title"
+                        class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-700 ease-out" />
+                    <!-- Gradient fade to card bg -->
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-[var(--bg-secondary)] via-[var(--bg-secondary)]/20 to-transparent">
                     </div>
 
-                    <!-- Small central logo/icon placeholder -->
+
+
+                    <!-- Period badge -->
                     <div
-                        class="absolute center w-20 h-20 border border-white/10 rounded-full flex items-center justify-center backdrop-blur-sm">
-                        <div
-                            class="w-3 h-3 bg-[var(--accent)] rounded-full shadow-[0_0_15px_var(--accent)] animate-pulse">
+                        class="absolute top-3 right-3 px-2.5 py-1 bg-black/60 backdrop-blur-sm rounded-full border border-white/10 font-mono text-[10px] uppercase tracking-wider text-white/70">
+                        {{ proj.period }}
+                    </div>
+                    <!-- Accent top line on hover -->
+                    <div
+                        class="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[var(--accent)]/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700">
+                    </div>
+                </div>
+
+                <!-- Fallback accent line (no image) -->
+                <div *ngIf="!proj.image"
+                    class="h-[2px] w-full bg-gradient-to-r from-transparent via-[var(--accent)]/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700">
+                </div>
+
+                <div class="p-5 sm:p-8" [class.pt-4]="!!proj.image">
+
+                    <!-- Header row -->
+                    <div class="flex items-start justify-between gap-4 mb-5">
+                        <div class="flex items-center gap-3">
+                            <span class="text-3xl select-none">{{ proj.emoji }}</span>
+                            <div>
+                                <div *ngIf="!proj.image" class="flex items-center gap-2 mb-0.5">
+                                    <span
+                                        class="font-mono text-[10px] uppercase tracking-[0.3em] text-[var(--text-secondary)] opacity-60">{{
+                                        proj.period }}</span>
+                                </div>
+                                <h3
+                                    class="text-2xl md:text-3xl font-black text-[var(--text-primary)] tracking-tight leading-none group-hover:text-[var(--accent)] transition-colors duration-300">
+                                    {{ proj.title }}
+                                </h3>
+                                <p class="font-mono text-xs text-[var(--text-secondary)] mt-1">{{ proj.subtitle }}</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-2 shrink-0">
+                            <a [href]="proj.repo" target="_blank"
+                                class="p-2 border border-[var(--border-color)] rounded-full hover:border-[var(--accent)] hover:text-[var(--accent)] transition-all duration-300">
+                                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+                                </svg>
+                            </a>
                         </div>
                     </div>
-                </div>
 
-                <!-- Ghost Title over card -->
-                <div class="absolute -bottom-8 -left-6 z-20 pointer-events-none">
-                    <h4
-                        class="text-7xl md:text-[10rem] lg:text-[14rem] font-black text-white mix-blend-difference opacity-90 uppercase leading-none select-none tracking-tighter">
-                        {{ project.title.substring(0, 4) }}<span class="text-outline text-transparent opacity-50">{{
-                            project.title.substring(4, 5) }}</span>
-                    </h4>
+                    <!-- Description -->
+                    <p class="text-[var(--text-secondary)] text-base leading-relaxed mb-6">{{ proj.description
+                        }}</p>
+
+                    <!-- Module accordion rows -->
+                    <div class="flex flex-col gap-4 mb-6">
+                        <div *ngFor="let mod of proj.modules"
+                            class="module-group rounded-xl border border-[var(--border-color)]/60 p-4 bg-[var(--bg-primary)]/50 group-hover:border-[var(--border-color)] transition-colors duration-300">
+                            <p
+                                class="font-mono text-[10px] uppercase tracking-[0.25em] text-[var(--accent)] mb-3 flex items-center gap-2">
+                                <span
+                                    class="w-1 h-1 rounded-full bg-[var(--accent)] shadow-[0_0_4px_var(--accent)]"></span>
+                                {{ mod.name }}
+                            </p>
+                            <ul class="flex flex-col gap-1.5">
+                                <li *ngFor="let pt of mod.points"
+                                    class="text-xs text-[var(--text-secondary)] flex items-start gap-2">
+                                    <span
+                                        class="mt-1.5 w-1 h-1 rounded-full bg-[var(--text-secondary)]/30 shrink-0"></span>
+                                    {{ pt }}
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Impact -->
+                    <div class="mb-5 px-4 py-3 rounded-lg bg-[var(--accent)]/5 border border-[var(--accent)]/15">
+                        <p class="font-mono text-[10px] uppercase tracking-[0.25em] text-[var(--accent)] mb-1">Impact
+                        </p>
+                        <p class="text-xs text-[var(--text-secondary)] leading-relaxed">{{ proj.impact }}</p>
+                    </div>
+
+                    <!-- Tags -->
+                    <div class="flex flex-wrap gap-2">
+                        <span *ngFor="let tag of proj.tags"
+                            class="px-3 py-1 text-[10px] font-mono border border-[var(--border-color)] text-[var(--text-secondary)] rounded-full group-hover:border-[var(--accent)]/30 transition-colors duration-500 uppercase tracking-wider">
+                            {{ tag }}
+                        </span>
+                    </div>
+
                 </div>
             </div>
 
-            <!-- Project Details -->
-            <div class="project-info max-w-sm">
-                <div class="flex items-center gap-4 mb-6">
-                    <span class="text-gradient font-black text-2xl">0{{ i + 1 }}</span>
-                    <div class="h-[1px] flex-grow bg-[var(--border-color)]"></div>
-                </div>
-                <h3 class="text-3xl font-bold mb-4 text-[var(--text-primary)]">{{ project.title }}</h3>
-                <p class="text-[var(--text-secondary)] mb-8 leading-relaxed">
-                    {{ project.description }}
-                </p>
-
-                <div class="flex flex-wrap gap-2 mb-8">
-                    <span *ngFor="let tag of project.tags"
-                        class="px-3 py-1 text-xs font-mono font-medium border border-[var(--border-color)] text-[var(--text-secondary)] rounded-full">
-                        {{ tag }}
-                    </span>
-                </div>
-
-                <div class="flex gap-4">
-                    <a [href]="project.link" target="_blank"
-                        class="px-6 py-3 bg-[var(--text-primary)] text-[var(--bg-primary)] rounded-full font-bold text-sm hover:bg-[var(--accent)] transition-colors transform hover:scale-105 duration-300">Live
-                        Demo</a>
-                    <a [href]="project.repo" target="_blank"
-                        class="p-3 border border-[var(--border-color)] rounded-full hover:text-[var(--accent)] transition-colors group-hover:border-[var(--accent)]">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
-                        </svg>
-                    </a>
-                </div>
-            </div>
         </div>
-
-        <!-- End Slide (Optional) -->
-        <div class="project-panel shrink-0 w-[400px] flex flex-col justify-center text-center">
-            <p class="text-[var(--accent)] font-mono mb-4">Want more?</p>
-            <a href="https://github.com" target="_blank"
-                class="text-3xl font-bold hover:text-[var(--accent)] underline decoration-[var(--accent)] underline-offset-8">Visit
-                GitHub</a>
-        </div>
-
     </div>
 </section>

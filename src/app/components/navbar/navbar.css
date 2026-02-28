@@ -89,7 +89,7 @@ nav.scrolled .menu-box::after {
 /* Logo Rolling Animation */
 .logo-roll {
     text-decoration: none;
-    height: 32px;
+    height: 24px;
 }
 
 .char-wrapper {
@@ -98,14 +98,14 @@ nav.scrolled .menu-box::after {
 
 .char {
     display: block;
-    height: 32px;
-    line-height: 32px;
+    height: 24px;
+    line-height: 24px;
     transition: transform 0.6s cubic-bezier(0.76, 0, 0.24, 1);
     transition-delay: calc(var(--i) * 0.04s);
 }
 
 .logo-roll:hover .char {
-    transform: translateY(-100%);
+    transform: none;
 }
 
 /* Nav Link Hover Effects */
@@ -172,4 +172,43 @@ nav.scrolled .menu-box::after {
 /* Smooth transitions */
 * {
     -webkit-tap-highlight-color: transparent;
+}
+
+/* ── Mobile Menu Overlay ── */
+.mobile-menu-overlay {
+    background: #000000;
+    /* Pure black background */
+}
+
+.mobile-nav-link {
+    color: #94a3b8 !important;
+    /* Force light secondary color */
+    transition: all 0.5s cubic-bezier(0.85, 0, 0.15, 1);
+}
+
+.mobile-nav-link.active {
+    color: #f8fafc !important;
+    /* Force light primary color */
+}
+
+.mobile-nav-link .active-indicator {
+    opacity: 0;
+    transform: scale(0);
+    transition: all 0.4s ease;
+}
+
+.mobile-nav-link.active .active-indicator {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.mobile-nav-link:hover {
+    color: var(--accent) !important;
+}
+
+/* Force light colors inside mobile menu regardless of global theme */
+.mobile-menu-overlay .logo span,
+.mobile-menu-overlay button,
+.mobile-menu-overlay .text-right span {
+    color: #f8fafc !important;
 }

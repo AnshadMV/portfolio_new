@@ -1,7 +1,5 @@
-
-import { Component, AfterViewInit, ElementRef, ViewChild, Inject, PLATFORM_ID } from '@angular/core';
+import { Component, AfterViewInit, OnDestroy, ElementRef, ViewChild, Inject, PLATFORM_ID } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { GsapRevealDirective } from '../../directives/gsap-reveal.directive';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -12,15 +10,19 @@ interface SkillGroup {
   id: string;
 }
 
+interface Stat {
+  value: string;
+  label: string;
+}
+
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [CommonModule, GsapRevealDirective],
+  imports: [CommonModule],
   templateUrl: './profile.html',
   styleUrl: './profile.css'
 })
-export class ProfileComponent implements AfterViewInit {
-  @ViewChild('textContainer') textContainer!: ElementRef;
+export class ProfileComponent implements AfterViewInit, OnDestroy {
   @ViewChild('summaryContainer') summaryContainer!: ElementRef;
 
   private isBrowser: boolean;
@@ -29,44 +31,57 @@ export class ProfileComponent implements AfterViewInit {
     this.isBrowser = isPlatformBrowser(this.platformId);
   }
 
-  name = 'Full Stack Developer';
-  role = '.NET & Angular';
+  name = 'Anshad Muhammed V';
+  role = '.NET & Angular Full Stack Developer';
   location = 'Tirur, Malappuram, Kerala';
-  email = 'anshad.contact@gmail.com';
+  email = 'anshadcontacts@gmail.com';
   phone = '+91 9400300166';
+  github = 'https://github.com/AnshadMV';
+  linkedin = 'https://www.linkedin.com/in/anshadvelladath';
 
-  summary = 'Full Stack Developer with strong experience in designing and developing scalable web applications using C#, ASP.NET Core, Entity Framework Core, Dapper, and MS SQL Server. Skilled in building RESTful APIs, integrating Angular frontends, and optimizing database performance. Focused on clean architecture, maintainable code, and delivering reliable features in Agile development environments.';
+  stats: Stat[] = [
+    { value: '30+', label: 'RESTful APIs' },
+    { value: '30%', label: 'DB Optimized' },
+    { value: '15+', label: 'Angular Components' },
+    { value: '10+', label: 'Agile Sprints' },
+  ];
 
   skillGroups: SkillGroup[] = [
     {
-      id: 'Programming',
+      id: '01 — Programming',
       category: 'Core Languages',
       theme: 'dark',
-      skills: ['C#', 'JavaScript', 'SQL', 'HTML5', 'CSS3']
+      skills: ['C#', 'JavaScript', 'TypeScript', 'SQL', 'HTML5', 'CSS3']
     },
     {
-      id: 'Backend',
+      id: '02 — Backend',
       category: 'API & Server',
       theme: 'dark',
-      skills: ['ASP.NET Core', 'EF Core', 'Dapper', 'RESTful APIs']
+      skills: ['ASP.NET Core', 'Web API', 'EF Core', 'ADO.NET', 'Dapper', 'RESTful APIs']
     },
     {
-      id: 'Frontend',
+      id: '03 — Frontend',
       category: 'UI & UX',
       theme: 'dark',
-      skills: ['Angular', 'Context API', 'Tailwind CSS', 'Bootstrap']
+      skills: ['Angular', 'NgRx', 'Tailwind CSS', 'Bootstrap']
     },
     {
-      id: 'Database',
+      id: '04 — Database',
       category: 'Data Systems',
       theme: 'dark',
-      skills: ['MS SQL Server', 'Stored Procedures', 'Optimization']
+      skills: ['SQL Server', 'Stored Procedures', 'Indexing', 'Firebase']
     },
     {
-      id: 'Infrastructure',
-      category: 'Cloud & Tools',
+      id: '05 — Cloud & DevOps',
+      category: 'Cloud & Infra',
       theme: 'dark',
-      skills: ['Azure', 'Firebase', 'Git & GitHub', 'CI/CD']
+      skills: ['Azure', 'AWS', 'Docker', 'Kubernetes', 'CI/CD']
+    },
+    {
+      id: '06 — Concepts',
+      category: 'Architecture',
+      theme: 'dark',
+      skills: ['Clean Architecture', 'Microservices', 'DDD', 'PBAC', 'Agile/Scrum']
     }
   ];
 
@@ -75,10 +90,9 @@ export class ProfileComponent implements AfterViewInit {
 
     gsap.registerPlugin(ScrollTrigger);
 
-    // 1. Summary Word Reveal Animation
+    // Summary Word Reveal Animation
     const summaryWords = this.summaryContainer.nativeElement.querySelectorAll('.word-reveal');
 
-    // Set initial state in JS instead of CSS
     gsap.set(summaryWords, {
       opacity: 0,
       y: 30,
@@ -89,9 +103,9 @@ export class ProfileComponent implements AfterViewInit {
     const summaryTl = gsap.timeline({
       scrollTrigger: {
         trigger: this.summaryContainer.nativeElement,
-        start: 'top 90%', // Trigger earlier
+        start: 'top 90%',
         toggleActions: 'play none none none',
-        once: true // Ensure it stays visible
+        once: true
       }
     });
 
@@ -105,65 +119,63 @@ export class ProfileComponent implements AfterViewInit {
       ease: 'power3.out'
     });
 
-    // 2. Special Word Effects
+    // Special Word Effects
     const squiggle = this.summaryContainer.nativeElement.querySelector('.squiggle');
-    summaryTl.to(squiggle, {
-      opacity: 1,
-      attr: { 'stroke-dashoffset': 0 },
-      duration: 0.8,
-      ease: 'power2.inOut'
-    }, '-=0.4');
+    if (squiggle) {
+      summaryTl.to(squiggle, {
+        opacity: 1,
+        strokeDashoffset: 0,
+        duration: 0.8,
+        ease: 'power2.inOut'
+      }, '-=0.4');
+    }
 
-    // Char Swap Logic for "Scalable"
+    // Char swap on "scalable"
+    const scalableWord = this.summaryContainer.nativeElement.querySelector('.scalable');
     const charSwaps = this.summaryContainer.nativeElement.querySelectorAll('.char-swap');
-    if (charSwaps.length > 0) {
-      this.summaryContainer.nativeElement.querySelector('.scalable').addEventListener('mouseenter', () => {
-        gsap.to(charSwaps, {
-          y: -5,
-          color: '#ffffff',
-          stagger: 0.05,
-          duration: 0.3
-        });
+    if (scalableWord && charSwaps.length > 0) {
+      scalableWord.addEventListener('mouseenter', () => {
+        gsap.to(charSwaps, { y: -5, color: '#ffffff', stagger: 0.05, duration: 0.3 });
       });
-      this.summaryContainer.nativeElement.querySelector('.scalable').addEventListener('mouseleave', () => {
-        gsap.to(charSwaps, {
-          y: 0,
-          color: 'var(--accent)',
-          stagger: 0.05,
-          duration: 0.3
-        });
+      scalableWord.addEventListener('mouseleave', () => {
+        gsap.to(charSwaps, { y: 0, color: 'var(--accent)', stagger: 0.05, duration: 0.3 });
       });
     }
 
-    // 3. Pinned Scroll-Text Section (Existing)
-    const container = this.textContainer.nativeElement;
-    const phrases = container.querySelectorAll('.scroll-phrase');
-
-    if (phrases.length > 0) {
-      const tl = gsap.timeline({
+    // Stats counter animation
+    const statEls = document.querySelectorAll('.stat-number');
+    statEls.forEach((el) => {
+      gsap.from(el, {
+        textContent: '0',
+        duration: 1.5,
+        ease: 'power2.out',
         scrollTrigger: {
-          trigger: '.scroll-text-container',
-          start: 'top top',
-          end: '+=2500',
-          scrub: 1,
-          pin: true,
-          anticipatePin: 1
+          trigger: el,
+          start: 'top 85%',
+          once: true
         }
       });
+    });
 
-      gsap.set(phrases, { opacity: 0, y: 50 });
+    // Skill rows stagger reveal
+    const skillRows = document.querySelectorAll('.skill-row');
+    gsap.from(skillRows, {
+      opacity: 0,
+      x: -30,
+      duration: 0.7,
+      stagger: 0.12,
+      ease: 'power2.out',
+      scrollTrigger: {
+        trigger: '.skills-section',
+        start: 'top 80%',
+        once: true
+      }
+    });
+  }
 
-      phrases.forEach((phrase: any, index: number) => {
-        tl.to(phrase, {
-          opacity: 1, y: 0, duration: 2, ease: 'power2.out'
-        }, index * 4);
-
-        if (index < phrases.length - 1) {
-          tl.to(phrase, {
-            opacity: 0, y: -50, duration: 2, ease: 'power2.in'
-          }, (index * 4) + 2.5);
-        }
-      });
+  ngOnDestroy() {
+    if (this.isBrowser) {
+      ScrollTrigger.getAll().forEach(t => t.kill());
     }
   }
 }
